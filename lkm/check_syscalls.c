@@ -196,15 +196,15 @@ check_syscalls (void)
 	
 	memcpy(tmp, (void *) sysmap_packet_rcv, 64);
 	memset(message, 0, 128);
-	sprintf(message, "packet_rcv      - %08X %08X %08X %08X\n", (unsigned int) *tmp, (unsigned int) *(tmp+1), (unsigned int) *(tmp+2),
-		(unsigned int) *(tmp+3));
+	sprintf(message, "packet_rcv      - %08X %08X %08X %08X\n", (unsigned int) *tmp, (unsigned int) *(tmp+4), (unsigned int) *(tmp+8),
+		(unsigned int) *(tmp+12));
 	memset(message+127, '\0', 1);
 	write_to_file(fd, message, strlen(message));
 	
 	memcpy(tmp, (void *) sysmap_packet_rcv_spkt, 64);
 	memset(message, 0, 128);
-	sprintf(message, "packet_rcv_spkt - %08X %08X %08X %08X\n", (unsigned int) *tmp, (unsigned int) *(tmp+1), (unsigned int) *(tmp+2),
-		(unsigned int) *(tmp+3));
+	sprintf(message, "packet_rcv_spkt - %08X %08X %08X %08X\n", (unsigned int) *tmp, (unsigned int) *(tmp+4), (unsigned int) *(tmp+8),
+		(unsigned int) *(tmp+12));
 	memset(message+127, '\0', 1);
 	write_to_file(fd, message, strlen(message));
 	
