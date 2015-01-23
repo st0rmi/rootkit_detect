@@ -1,1 +1,0 @@
-cmd_/root/rootkit_detect/lkm/sasuke.o := ld -m elf_x86_64   -r -o /root/rootkit_detect/lkm/sasuke.o /root/rootkit_detect/lkm/check_syscalls.o /root/rootkit_detect/lkm/include.o /root/rootkit_detect/lkm/main.o 

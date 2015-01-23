@@ -1,1 +1,0 @@
-cmd_/root/rootkit_detect/lkm/sasuke.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /root/rootkit_detect/lkm/sasuke.ko /root/rootkit_detect/lkm/sasuke.o /root/rootkit_detect/lkm/sasuke.mod.o
