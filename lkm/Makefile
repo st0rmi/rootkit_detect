@@ -1,5 +1,5 @@
 obj-m += sasuke.o
-sasuke-y := check_syscalls.o include.o main.o
+sasuke-y := check_syscalls.o count_modules.o include.o main.o
 #ccflags-y = -std=gnu99 -Wno-declaration-after-statement
 ccflags-y = -DDEBUG -std=gnu99 -Wno-declaration-after-statement
 

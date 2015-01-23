@@ -25,6 +25,7 @@
 #include <linux/kernel.h>
 
 #include "check_syscalls.h"
+#include "count_modules.h"
 #include "include.h"
 #include "main.h"
 
@@ -48,7 +49,9 @@ int init_module (void)
 		ROOTKIT_DEBUG("Error while checking the system call table!\n");
 		return ret;
 	}
-
+	
+	ret = count_modules();
+	
 	/* log the completion */
 	ROOTKIT_DEBUG("****************************************\n");	
 	ROOTKIT_DEBUG("Check complete. You may now unload.\n");
