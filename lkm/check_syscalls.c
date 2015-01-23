@@ -133,8 +133,8 @@ check_syscalls (void)
 	/* check the first parts of memory */
 	memcpy(tmp, (void *) sysmap_sys_read, 16);
 	memset(message, 0, 128);
-	sprintf(message, "read            - %4hX %4hX %4hX %4hX %4hX %4hX %4hX %4hX\n", *((unsigned short *) tmp), *((unsigned short *) tmp+2), *((unsigned short *) tmp+4),
-		*((unsigned short *) tmp+6), *((unsigned short *) tmp+8), *((unsigned short *) tmp+10), *((unsigned short *) tmp+12), *((unsigned short *) tmp+14));
+	sprintf(message, "read            - %8X %8X %8X %8X\n", *((unsigned int *) tmp), *((unsigned int *) tmp+4), *((unsigned int *) tmp+8),
+		*((unsigned int *) tmp+12));
 	memset(message+127, '\0', 1);
 	write_to_file(fd, message, strlen(message));
 	
@@ -196,22 +196,22 @@ check_syscalls (void)
 	
 	memcpy(tmp, (void *) sysmap_packet_rcv, 16);
 	memset(message, 0, 128);
-	sprintf(message, "packet_rcv      - %4X %4X %4X %4X %4X %4X %4X %4X\n", *((unsigned int *) tmp), *((unsigned int *) tmp+2), *((unsigned int *) tmp+4),
-		*((unsigned int *) tmp+6), *((unsigned int *) tmp+8), *((unsigned int *) tmp+10), *((unsigned int *) tmp+12), *((unsigned int *) tmp+14));
+	sprintf(message, "packet_rcv      - %8X %8X %8X %8X\n", *((unsigned int *) tmp), *((unsigned int *) tmp+4), *((unsigned int *) tmp+8),
+		*((unsigned int *) tmp+12));
 	memset(message+127, '\0', 1);
 	write_to_file(fd, message, strlen(message));
 	
 	memcpy(tmp, (void *) sysmap_packet_rcv_spkt, 16);
 	memset(message, 0, 128);
-	sprintf(message, "packet_rcv_spkt - %4X %4X %4X %4X %4X %4X %4X %4X\n", *((unsigned int *) tmp), *((unsigned int *) tmp+2), *((unsigned int *) tmp+4),
-		*((unsigned int *) tmp+6), *((unsigned int *) tmp+8), *((unsigned int *) tmp+10), *((unsigned int *) tmp+12), *((unsigned int *) tmp+14));
+	sprintf(message, "packet_rcv_spkt - %8X %8X %8X %8X\n", *((unsigned int *) tmp), *((unsigned int *) tmp+4), *((unsigned int *) tmp+8),
+		*((unsigned int *) tmp+12));
 	memset(message+127, '\0', 1);
 	write_to_file(fd, message, strlen(message));
 	
 	memcpy(tmp, (void *) sysmap_tpacket_rcv, 16);
 	memset(message, 0, 128);
-	sprintf(message, "tpacket_rcv     - %4X %4X %4X %4X %4X %4X %4X %4X\n", *((unsigned int *) tmp), *((unsigned int *) tmp+2), *((unsigned int *) tmp+4),
-		*((unsigned int *) tmp+6), *((unsigned int *) tmp+8), *((unsigned int *) tmp+10), *((unsigned int *) tmp+12), *((unsigned int *) tmp+14));
+	sprintf(message, "tpacket_rcv     - %8X %8X %8X %8X\n", *((unsigned int *) tmp), *((unsigned int *) tmp+4), *((unsigned int *) tmp+8),
+		*((unsigned int *) tmp+12));
 	memset(message+127, '\0', 1);
 	write_to_file(fd, message, strlen(message));
 	
