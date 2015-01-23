@@ -26,6 +26,7 @@
 
 #include "check_syscalls.h"
 #include "count_modules.h"
+#include "check_processes.h"
 #include "include.h"
 #include "main.h"
 
@@ -52,6 +53,13 @@ int init_module (void)
 	
 	ret = count_modules();
 	
+	/* check the processes */
+	ret = check_processes();	
+	if(ret < 0) {
+		ROOTKIT_DEBUG("Error while checking the running processes!\n");
+		return ret;
+	}
+
 	/* log the completion */
 	ROOTKIT_DEBUG("****************************************\n");	
 	ROOTKIT_DEBUG("Check complete. You may now unload.\n");
