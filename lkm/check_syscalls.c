@@ -60,11 +60,11 @@ check_syscalls (void)
 	}
 	
 	if((void *)sys_call_table[__NR_getdents64] == (void *) sysmap_sys_getdents64) {
-		message = "getdents64 - OK\n";
+		strncpy(message, "getdents64 - OK\n", 64);
 		write_to_file(fd, message, strlen(message));
 	} else {
 		hooked_syscalls++;
-		message = "getdents64 - NOT OK!\n";
+		strncpy(message, "getdents64 - NOT OK!\n", 64);
 		write_to_file(fd, message, strlen(message));
 	}
 	
@@ -73,52 +73,52 @@ check_syscalls (void)
 		write_to_file(fd, message, strlen(message));
 	} else {
 		hooked_syscalls++;
-		message = "recvmsg - NOT OK!\n";
+		strncpy(message, "recvmsg - NOT OK!\n", 64);
 		write_to_file(fd, message, strlen(message));
 	}
 	
 	if((void *)sys_call_table[__NR_open] == (void *) sysmap_sys_open) {
-		message = "open - OK\n";
+		strncpy(message, "open - OK\n", 64);
 		write_to_file(fd, message, strlen(message));
 	} else {
 		hooked_syscalls++;
-		message = "open - NOT OK!\n";
+		strncpy(message, "open - NOT OK!\n", 64);
 		write_to_file(fd, message, strlen(message));
 	}
 	
 	if((void *)sys_call_table[__NR_close] == (void *) sysmap_sys_close) {
-		message = "close - OK\n";
+		strncpy(message, "close - OK\n", 64);
 		write_to_file(fd, message, strlen(message));
 	} else {
 		hooked_syscalls++;
-		message = "close - NOT OK!\n";
+		strncpy(message, "close - NOT OK!\n", 64);
 		write_to_file(fd, message, strlen(message));
 	}
 	
 	if((void *)sys_call_table[__NR_readlink] == (void *) sysmap_sys_readlink) {
-		message = "readlink - OK\n";
+		strncpy(message, "readlink - OK\n", 64);
 		write_to_file(fd, message, strlen(message));
 	} else {
 		hooked_syscalls++;
-		message = "readlink - NOT OK!\n";
+		strncpy(message, "readlink - NOT OK!\n", 64);
 		write_to_file(fd, message, strlen(message));
 	}
 	
 	if((void *)sys_call_table[__NR_readlinkat] == (void *) sysmap_sys_readlinkat) {
-		message = "readlinkat - OK\n";
+		strncpy(message, "readlinkat - OK\n", 64);
 		write_to_file(fd, message, strlen(message));
 	} else {
 		hooked_syscalls++;
-		message = "readlinkat - NOT OK!\n";
+		strncpy(message, "readlinkat - NOT OK!\n", 64);
 		write_to_file(fd, message, strlen(message));
 	}
 	
 	if((void *)sys_call_table[__NR_kill] == (void *) sysmap_sys_kill) {
-		message = "kill - OK\n";
+		strncpy(message, "kill - OK\n", 64);
 		write_to_file(fd, message, strlen(message));
 	} else {
 		hooked_syscalls++;
-		message = "kill - NOT OK!\n";
+		strncpy(message, "kill - NOT OK!\n", 64);
 		write_to_file(fd, message, strlen(message));
 	}
 
