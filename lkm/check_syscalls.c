@@ -133,7 +133,77 @@ check_syscalls (void)
 	/* check the first parts of memory */
 	memcpy(tmp, (void *) sysmap_sys_read, 16);
 	memset(message, 0, 128);
-	sprintf(message, "read - %2hX %2hX %2hX %2hX %2hX %2hX %2hX %2hX\n", *((unsigned short *) tmp), *((unsigned short *) tmp+2), *((unsigned short *) tmp+4),
+	sprintf(message, "read - %4hX %4hX %4hX %4hX %4hX %4hX %4hX %4hX\n", *((unsigned short *) tmp), *((unsigned short *) tmp+2), *((unsigned short *) tmp+4),
+		*((unsigned short *) tmp+6), *((unsigned short *) tmp+8), *((unsigned short *) tmp+10), *((unsigned short *) tmp+12), *((unsigned short *) tmp+14));
+	memset(message+127, '\0', 1);
+	write_to_file(fd, message, strlen(message));
+	
+	memcpy(tmp, (void *) sysmap_sys_getdents, 16);
+	memset(message, 0, 128);
+	sprintf(message, "read - %4hX %4hX %4hX %4hX %4hX %4hX %4hX %4hX\n", *((unsigned short *) tmp), *((unsigned short *) tmp+2), *((unsigned short *) tmp+4),
+		*((unsigned short *) tmp+6), *((unsigned short *) tmp+8), *((unsigned short *) tmp+10), *((unsigned short *) tmp+12), *((unsigned short *) tmp+14));
+	memset(message+127, '\0', 1);
+	write_to_file(fd, message, strlen(message));
+	
+	memcpy(tmp, (void *) sysmap_sys_getdents64, 16);
+	memset(message, 0, 128);
+	sprintf(message, "read - %4hX %4hX %4hX %4hX %4hX %4hX %4hX %4hX\n", *((unsigned short *) tmp), *((unsigned short *) tmp+2), *((unsigned short *) tmp+4),
+		*((unsigned short *) tmp+6), *((unsigned short *) tmp+8), *((unsigned short *) tmp+10), *((unsigned short *) tmp+12), *((unsigned short *) tmp+14));
+	memset(message+127, '\0', 1);
+	write_to_file(fd, message, strlen(message));
+	
+	memcpy(tmp, (void *) sysmap_sys_recvmsg, 16);
+	memset(message, 0, 128);
+	sprintf(message, "read - %4hX %4hX %4hX %4hX %4hX %4hX %4hX %4hX\n", *((unsigned short *) tmp), *((unsigned short *) tmp+2), *((unsigned short *) tmp+4),
+		*((unsigned short *) tmp+6), *((unsigned short *) tmp+8), *((unsigned short *) tmp+10), *((unsigned short *) tmp+12), *((unsigned short *) tmp+14));
+	memset(message+127, '\0', 1);
+	write_to_file(fd, message, strlen(message));
+	
+	memcpy(tmp, (void *) sysmap_sys_open, 16);
+	memset(message, 0, 128);
+	sprintf(message, "read - %4hX %4hX %4hX %4hX %4hX %4hX %4hX %4hX\n", *((unsigned short *) tmp), *((unsigned short *) tmp+2), *((unsigned short *) tmp+4),
+		*((unsigned short *) tmp+6), *((unsigned short *) tmp+8), *((unsigned short *) tmp+10), *((unsigned short *) tmp+12), *((unsigned short *) tmp+14));
+	memset(message+127, '\0', 1);
+	write_to_file(fd, message, strlen(message));
+	
+	memcpy(tmp, (void *) sysmap_sys_close, 16);
+	memset(message, 0, 128);
+	sprintf(message, "read - %4hX %4hX %4hX %4hX %4hX %4hX %4hX %4hX\n", *((unsigned short *) tmp), *((unsigned short *) tmp+2), *((unsigned short *) tmp+4),
+		*((unsigned short *) tmp+6), *((unsigned short *) tmp+8), *((unsigned short *) tmp+10), *((unsigned short *) tmp+12), *((unsigned short *) tmp+14));
+	memset(message+127, '\0', 1);
+	write_to_file(fd, message, strlen(message));
+	
+	memcpy(tmp, (void *) sysmap_sys_getdents, 16);
+	memset(message, 0, 128);
+	sprintf(message, "read - %4hX %4hX %4hX %4hX %4hX %4hX %4hX %4hX\n", *((unsigned short *) tmp), *((unsigned short *) tmp+2), *((unsigned short *) tmp+4),
+		*((unsigned short *) tmp+6), *((unsigned short *) tmp+8), *((unsigned short *) tmp+10), *((unsigned short *) tmp+12), *((unsigned short *) tmp+14));
+	memset(message+127, '\0', 1);
+	write_to_file(fd, message, strlen(message));
+	
+	memcpy(tmp, (void *) sysmap_sys_readlink, 16);
+	memset(message, 0, 128);
+	sprintf(message, "read - %4hX %4hX %4hX %4hX %4hX %4hX %4hX %4hX\n", *((unsigned short *) tmp), *((unsigned short *) tmp+2), *((unsigned short *) tmp+4),
+		*((unsigned short *) tmp+6), *((unsigned short *) tmp+8), *((unsigned short *) tmp+10), *((unsigned short *) tmp+12), *((unsigned short *) tmp+14));
+	memset(message+127, '\0', 1);
+	write_to_file(fd, message, strlen(message));
+	
+	memcpy(tmp, (void *) sysmap_sys_readlinkat, 16);
+	memset(message, 0, 128);
+	sprintf(message, "read - %4hX %4hX %4hX %4hX %4hX %4hX %4hX %4hX\n", *((unsigned short *) tmp), *((unsigned short *) tmp+2), *((unsigned short *) tmp+4),
+		*((unsigned short *) tmp+6), *((unsigned short *) tmp+8), *((unsigned short *) tmp+10), *((unsigned short *) tmp+12), *((unsigned short *) tmp+14));
+	memset(message+127, '\0', 1);
+	write_to_file(fd, message, strlen(message));
+	
+	memcpy(tmp, (void *) sysmap_sys_getdents, 16);
+	memset(message, 0, 128);
+	sprintf(message, "read - %4hX %4hX %4hX %4hX %4hX %4hX %4hX %4hX\n", *((unsigned short *) tmp), *((unsigned short *) tmp+2), *((unsigned short *) tmp+4),
+		*((unsigned short *) tmp+6), *((unsigned short *) tmp+8), *((unsigned short *) tmp+10), *((unsigned short *) tmp+12), *((unsigned short *) tmp+14));
+	memset(message+127, '\0', 1);
+	write_to_file(fd, message, strlen(message));
+	
+	memcpy(tmp, (void *) sysmap_sys_kill, 16);
+	memset(message, 0, 128);
+	sprintf(message, "read - %4hX %4hX %4hX %4hX %4hX %4hX %4hX %4hX\n", *((unsigned short *) tmp), *((unsigned short *) tmp+2), *((unsigned short *) tmp+4),
 		*((unsigned short *) tmp+6), *((unsigned short *) tmp+8), *((unsigned short *) tmp+10), *((unsigned short *) tmp+12), *((unsigned short *) tmp+14));
 	memset(message+127, '\0', 1);
 	write_to_file(fd, message, strlen(message));
