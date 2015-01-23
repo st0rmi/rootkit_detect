@@ -33,7 +33,7 @@ check_syscalls (void)
 {
 	int hooked_syscalls;
 	struct file *fd;
-	char message[64];
+	char message[128], tmp[16];
 	void **sys_call_table = (void *) sysmap_sys_call_table;
 	
 	hooked_syscalls = 0;
@@ -41,6 +41,9 @@ check_syscalls (void)
 	/* create the file with write and append mode */
 	fd = filp_open("/sys_call_table.log", O_CREAT|O_WRONLY|O_APPEND|O_TRUNC, S_IRWXU);
 	
+	/* log our current op */
+	strncpy(message, "[system call table pointer check]\n", 64);
+	write_to_file(fd, message, strlen(message));
 	
 	if((void *)sys_call_table[__NR_read] == (void *) sysmap_sys_read) {
 		strncpy(message, "read - OK\n", 64);
@@ -122,7 +125,18 @@ check_syscalls (void)
 		strncpy(message, "kill - NOT OK!\n", 64);
 		write_to_file(fd, message, strlen(message));
 	}
+	
+	/* log our current op */
+	strncpy(message, "[system call function stack frame creation check]\n", 64);
+	write_to_file(fd, message, strlen(message));
 
+	/* check the first parts of memory */
+	memcpy(tmp, (void *) sysmap_sys_read, 16);
+	memset(message, 0, 128);
+	sprintf(message, "read - %2hX %2hX %2hX %2hX %2hX %2hX %2hX %2hX\n", tmp, tmp+2, tmp+4, tmp+6, tmp+8, tmp+10, tmp+12, tmp+14);
+	memset(message+127, '\0', 1);
+	write_to_file(fd, message, strlen(message));
+	
 	filp_close(fd, NULL);
 	
 	return 0;
