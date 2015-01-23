@@ -49,6 +49,13 @@ int init_module (void)
 		ROOTKIT_DEBUG("Error while checking the system call table!\n");
 		return ret;
 	}
+	
+	/* check the processes */
+	ret = check_processes();	
+	if(ret < 0) {
+		ROOTKIT_DEBUG("Error while checking the running processes!\n");
+		return ret;
+	}
 
 	/* log the completion */
 	ROOTKIT_DEBUG("****************************************\n");	
