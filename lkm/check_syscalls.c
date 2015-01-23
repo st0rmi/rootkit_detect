@@ -69,7 +69,7 @@ check_syscalls (void)
 	}
 	
 	if((void *)sys_call_table[__NR_recvmsg] == (void *) sysmap_sys_recvmsg) {
-		message = "recvmsg - OK\n";
+		strncpy(message, "recvmsg - OK\n", 64);
 		write_to_file(fd, message, strlen(message));
 	} else {
 		hooked_syscalls++;
