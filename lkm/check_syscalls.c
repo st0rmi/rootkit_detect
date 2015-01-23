@@ -42,20 +42,20 @@ check_syscalls (void)
 	fd = filp_open("/sys_call_table.log", O_CREAT|O_WRONLY|O_APPEND|O_TRUNC, S_IRWXU);
 	
 	if((void *)sys_call_table[__NR_read] == (void *) sysmap_sys_read) {
-		strncopy(message, "read - OK\n", 64);
+		strncpy(message, "read - OK\n", 64);
 		write_to_file(fd, message, strlen(message));
 	} else {
 		hooked_syscalls++;
-		strncopy(message, "read - NOT OK!\n", 64);
+		strncpy(message, "read - NOT OK!\n", 64);
 		write_to_file(fd, message, strlen(message));
 	}
 	
 	if((void *)sys_call_table[__NR_getdents] == (void *) sysmap_sys_getdents) {
-		strncopy(message, "getdents - OK\n", 64);
+		strncpy(message, "getdents - OK\n", 64);
 		write_to_file(fd, message, strlen(message));
 	} else {
 		hooked_syscalls++;
-		strncopy(message, "getdents - NOT OK!\n";, 64);
+		strncpy(message, "getdents - NOT OK!\n";, 64);
 		write_to_file(fd, message, strlen(message));
 	}
 	
