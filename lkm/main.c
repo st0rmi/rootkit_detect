@@ -24,6 +24,7 @@
 
 #include <linux/kernel.h>
 
+#include "check_syscalls.h"
 #include "include.h"
 #include "main.h"
 

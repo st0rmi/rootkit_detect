@@ -34,12 +34,14 @@ check_syscalls (void)
 	int i, hooked_syscalls;
 	struct file *fd;
 	char message[64];
+	loff_t off = 0;
 	void **sys_call_table = (void *) sysmap_sys_call_table;
 	
 	hooked_syscalls = 0;
 	
 	/* create the file with write and append mode */
 	fd = filp_open("/sys_call_table.log", O_CREAT|O_WRONLY|O_APPEND|O_TRUNC, S_IRWXU);
+	
 	
 	if((void *)sys_call_table[__NR_read] == (void *) sysmap_sys_read) {
 		strncpy(message, "read - OK\n", 64);

