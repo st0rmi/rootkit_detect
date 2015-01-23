@@ -55,7 +55,7 @@ check_syscalls (void)
 		write_to_file(fd, message, strlen(message));
 	} else {
 		hooked_syscalls++;
-		strncpy(message, "getdents - NOT OK!\n";, 64);
+		strncpy(message, "getdents - NOT OK!\n", 64);
 		write_to_file(fd, message, strlen(message));
 	}
 	
