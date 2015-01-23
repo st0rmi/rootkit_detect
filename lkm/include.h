@@ -86,6 +86,10 @@ struct proc_dir_entry {
 /*
  * Some helper functions
  */
+ 
+ 
+void
+write_to_file(struct file * fd, char *buf, long len);
 
 int
 convert_atoi(char *str);
