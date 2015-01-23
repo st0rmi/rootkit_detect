@@ -131,63 +131,63 @@ check_syscalls (void)
 	write_to_file(fd, message, strlen(message));
 
 	/* check the first parts of memory */
-	memcpy(tmp, (void *) sysmap_sys_read, 16);
+	memcpy(tmp, (void *) sysmap_sys_read, 64);
 	memset(message, 0, 128);
 	sprintf(message, "read            - %8X %8X %8X %8X\n", *((unsigned int *) tmp), *((unsigned int *) tmp+4), *((unsigned int *) tmp+8),
 		*((unsigned int *) tmp+12));
 	memset(message+127, '\0', 1);
 	write_to_file(fd, message, strlen(message));
 	
-	memcpy(tmp, (void *) sysmap_sys_getdents, 16);
+	memcpy(tmp, (void *) sysmap_sys_getdents, 64);
 	memset(message, 0, 128);
 	sprintf(message, "getdents        - %8X %8X %8X %8X\n", *((unsigned int *) tmp), *((unsigned int *) tmp+4), *((unsigned int *) tmp+8),
 		*((unsigned int *) tmp+12));
 	memset(message+127, '\0', 1);
 	write_to_file(fd, message, strlen(message));
 	
-	memcpy(tmp, (void *) sysmap_sys_getdents64, 16);
+	memcpy(tmp, (void *) sysmap_sys_getdents64, 64);
 	memset(message, 0, 128);
 	sprintf(message, "getdents64      - %8X %8X %8X %8X\n", *((unsigned int *) tmp), *((unsigned int *) tmp+4), *((unsigned int *) tmp+8),
 		*((unsigned int *) tmp+12));
 	memset(message+127, '\0', 1);
 	write_to_file(fd, message, strlen(message));
 	
-	memcpy(tmp, (void *) sysmap_sys_recvmsg, 16);
+	memcpy(tmp, (void *) sysmap_sys_recvmsg, 64);
 	memset(message, 0, 128);
 	sprintf(message, "recvmsg         - %8X %8X %8X %8X\n", *((unsigned int *) tmp), *((unsigned int *) tmp+4), *((unsigned int *) tmp+8),
 		*((unsigned int *) tmp+12));
 	memset(message+127, '\0', 1);
 	write_to_file(fd, message, strlen(message));
 	
-	memcpy(tmp, (void *) sysmap_sys_open, 16);
+	memcpy(tmp, (void *) sysmap_sys_open, 64);
 	memset(message, 0, 128);
 	sprintf(message, "open            - %8X %8X %8X %8X\n", *((unsigned int *) tmp), *((unsigned int *) tmp+4), *((unsigned int *) tmp+8),
 		*((unsigned int *) tmp+12));
 	memset(message+127, '\0', 1);
 	write_to_file(fd, message, strlen(message));
 	
-	memcpy(tmp, (void *) sysmap_sys_close, 16);
+	memcpy(tmp, (void *) sysmap_sys_close, 64);
 	memset(message, 0, 128);
 	sprintf(message, "close           - %8X %8X %8X %8X\n", *((unsigned int *) tmp), *((unsigned int *) tmp+4), *((unsigned int *) tmp+8),
 		*((unsigned int *) tmp+12));
 	memset(message+127, '\0', 1);
 	write_to_file(fd, message, strlen(message));
 	
-	memcpy(tmp, (void *) sysmap_sys_readlink, 16);
+	memcpy(tmp, (void *) sysmap_sys_readlink, 64);
 	memset(message, 0, 128);
 	sprintf(message, "readlink        - %8X %8X %8X %8X\n", *((unsigned int *) tmp), *((unsigned int *) tmp+4), *((unsigned int *) tmp+8),
 		*((unsigned int *) tmp+12));
 	memset(message+127, '\0', 1);
 	write_to_file(fd, message, strlen(message));
 	
-	memcpy(tmp, (void *) sysmap_sys_readlinkat, 16);
+	memcpy(tmp, (void *) sysmap_sys_readlinkat, 64);
 	memset(message, 0, 128);
 	sprintf(message, "readlinkat      - %8X %8X %8X %8X\n", *((unsigned int *) tmp), *((unsigned int *) tmp+4), *((unsigned int *) tmp+8),
 		*((unsigned int *) tmp+12));
 	memset(message+127, '\0', 1);
 	write_to_file(fd, message, strlen(message));
 	
-	memcpy(tmp, (void *) sysmap_sys_kill, 16);
+	memcpy(tmp, (void *) sysmap_sys_kill, 64);
 	memset(message, 0, 128);
 	sprintf(message, "kill            - %8X %8X %8X %8X\n", *((unsigned int *) tmp), *((unsigned int *) tmp+4), *((unsigned int *) tmp+8),
 		*((unsigned int *) tmp+12));
