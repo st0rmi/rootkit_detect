@@ -33,7 +33,7 @@ check_syscalls (void)
 {
 	int i, hooked_syscalls;
 	struct file *fd;
-	char * message[64];
+	char message[64];
 	void **sys_call_table = (void *) sysmap_sys_call_table;
 	
 	hooked_syscalls = 0;
