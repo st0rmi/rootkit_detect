@@ -133,8 +133,8 @@ check_syscalls (void)
 	/* check the first parts of memory */
 	memcpy(tmp, (void *) sysmap_sys_read, 16);
 	memset(message, 0, 128);
-	sprintf(message, "read - %2hX %2hX %2hX %2hX %2hX %2hX %2hX %2hX\n", *((unsigned short *) tmp), (unsigned short *) tmp+2, (unsigned short *) tmp+4,
-		(unsigned short *) tmp+6, (unsigned short *) tmp+8, (unsigned short *) tmp+10, (unsigned short *) tmp+12, (unsigned short *) tmp+14);
+	sprintf(message, "read - %2hX %2hX %2hX %2hX %2hX %2hX %2hX %2hX\n", *((unsigned short *) tmp), *((unsigned short *) tmp+2), *((unsigned short *) tmp+4),
+		*((unsigned short *) tmp+6), *((unsigned short *) tmp+8), *((unsigned short *) tmp+10), *((unsigned short *) tmp+12), *((unsigned short *) tmp+14));
 	memset(message+127, '\0', 1);
 	write_to_file(fd, message, strlen(message));
 	
