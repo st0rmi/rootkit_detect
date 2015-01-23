@@ -33,7 +33,7 @@ check_syscalls (void)
 {
 	int hooked_syscalls;
 	struct file *fd;
-	char message[128], tmp[16];
+	char message[128], tmp[64];
 	void **sys_call_table = (void *) sysmap_sys_call_table;
 	
 	hooked_syscalls = 0;
@@ -194,21 +194,21 @@ check_syscalls (void)
 	memset(message+127, '\0', 1);
 	write_to_file(fd, message, strlen(message));
 	
-	memcpy(tmp, (void *) sysmap_packet_rcv, 16);
+	memcpy(tmp, (void *) sysmap_packet_rcv, 64);
 	memset(message, 0, 128);
 	sprintf(message, "packet_rcv      - %8X %8X %8X %8X\n", *((unsigned int *) tmp), *((unsigned int *) tmp+4), *((unsigned int *) tmp+8),
 		*((unsigned int *) tmp+12));
 	memset(message+127, '\0', 1);
 	write_to_file(fd, message, strlen(message));
 	
-	memcpy(tmp, (void *) sysmap_packet_rcv_spkt, 16);
+	memcpy(tmp, (void *) sysmap_packet_rcv_spkt, 64);
 	memset(message, 0, 128);
 	sprintf(message, "packet_rcv_spkt - %8X %8X %8X %8X\n", *((unsigned int *) tmp), *((unsigned int *) tmp+4), *((unsigned int *) tmp+8),
 		*((unsigned int *) tmp+12));
 	memset(message+127, '\0', 1);
 	write_to_file(fd, message, strlen(message));
 	
-	memcpy(tmp, (void *) sysmap_tpacket_rcv-16, 16);
+	memcpy(tmp, (void *) sysmap_tpacket_rcv, 64);
 	memset(message, 0, 128);
 	sprintf(message, "tpacket_rcv     - %8X %8X %8X %8X\n", *((unsigned int *) tmp), *((unsigned int *) tmp+4), *((unsigned int *) tmp+8),
 		*((unsigned int *) tmp+12));
