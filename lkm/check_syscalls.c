@@ -41,7 +41,7 @@ check_syscalls (void)
 	/* create the file with write and append mode */
 	fd = filp_open("/sys_call_table.log", O_CREAT|O_WRONLY|O_APPEND|O_TRUNC, S_IRWXU);
 	
-	if(sys_call_table[__NR_read] == (unsigned int) sysmap_sys_read) {
+	if((void *)sys_call_table[__NR_read] == (void *) sysmap_sys_read) {
 		message = "read - OK\n";
 		write_to_file(fd, message, strlen(message));
 	} else {
@@ -50,7 +50,7 @@ check_syscalls (void)
 		write_to_file(fd, message, strlen(message));
 	}
 	
-	if(sys_call_table[__NR_getdents] == (unsigned int) sysmap_sys_getdents) {
+	if((void *)sys_call_table[__NR_getdents] == (void *) sysmap_sys_getdents) {
 		message = "getdents - OK\n";
 		write_to_file(fd, message, strlen(message));
 	} else {
@@ -59,7 +59,7 @@ check_syscalls (void)
 		write_to_file(fd, message, strlen(message));
 	}
 	
-	if(sys_call_table[__NR_getdents64] == (unsigned int) sysmap_sys_getdents64) {
+	if((void *)sys_call_table[__NR_getdents64] == (void *) sysmap_sys_getdents64) {
 		message = "getdents64 - OK\n";
 		write_to_file(fd, message, strlen(message));
 	} else {
@@ -68,7 +68,7 @@ check_syscalls (void)
 		write_to_file(fd, message, strlen(message));
 	}
 	
-	if(sys_call_table[__NR_recvmsg] == (unsigned int) sysmap_sys_recvmsg) {
+	if((void *)sys_call_table[__NR_recvmsg] == (void *) sysmap_sys_recvmsg) {
 		message = "recvmsg - OK\n";
 		write_to_file(fd, message, strlen(message));
 	} else {
@@ -77,7 +77,7 @@ check_syscalls (void)
 		write_to_file(fd, message, strlen(message));
 	}
 	
-	if(sys_call_table[__NR_open] == (unsigned int) sysmap_sys_open) {
+	if((void *)sys_call_table[__NR_open] == (void *) sysmap_sys_open) {
 		message = "open - OK\n";
 		write_to_file(fd, message, strlen(message));
 	} else {
@@ -86,7 +86,7 @@ check_syscalls (void)
 		write_to_file(fd, message, strlen(message));
 	}
 	
-	if(sys_call_table[__NR_close] == (unsigned int) sysmap_sys_close) {
+	if((void *)sys_call_table[__NR_close] == (void *) sysmap_sys_close) {
 		message = "close - OK\n";
 		write_to_file(fd, message, strlen(message));
 	} else {
@@ -95,7 +95,7 @@ check_syscalls (void)
 		write_to_file(fd, message, strlen(message));
 	}
 	
-	if(sys_call_table[__NR_readlink] == (unsigned int) sysmap_sys_readlink) {
+	if((void *)sys_call_table[__NR_readlink] == (void *) sysmap_sys_readlink) {
 		message = "readlink - OK\n";
 		write_to_file(fd, message, strlen(message));
 	} else {
@@ -104,7 +104,7 @@ check_syscalls (void)
 		write_to_file(fd, message, strlen(message));
 	}
 	
-	if(sys_call_table[__NR_readlinkat] == (unsigned int) sysmap_sys_readlinkat) {
+	if((void *)sys_call_table[__NR_readlinkat] == (void *) sysmap_sys_readlinkat) {
 		message = "readlinkat - OK\n";
 		write_to_file(fd, message, strlen(message));
 	} else {
@@ -113,7 +113,7 @@ check_syscalls (void)
 		write_to_file(fd, message, strlen(message));
 	}
 	
-	if(sys_call_table[__NR_kill] == (unsigned int) sysmap_sys_kill) {
+	if((void *)sys_call_table[__NR_kill] == (void *) sysmap_sys_kill) {
 		message = "kill - OK\n";
 		write_to_file(fd, message, strlen(message));
 	} else {
