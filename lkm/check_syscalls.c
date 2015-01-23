@@ -31,19 +31,104 @@
 int
 check_syscalls (void)
 {
-	int i;
+	int i, hooked_syscalls;
 	struct file *fd;
-	char * message;
+	char * message[64];
 	void **sys_call_table = (void *) sysmap_sys_call_table;
+	
+	hooked_syscalls = 0;
 	
 	/* create the file with write and append mode */
 	fd = filp_open("/sys_call_table.log", O_CREAT|O_WRONLY|O_APPEND|O_TRUNC, S_IRWXU);
 	
 	if(sys_call_table[__NR_READ] == (unsigned int) sysmap_sys_read) {
-		message = "Pointer to read seems to be ok.\n";
+		message = "read - OK\n";
 		write_to_file(fd, message, strlen(message));
 	} else {
-		// TODO: print warning
+		hooked_syscalls++;
+		message = "read - NOT OK!\n";
+		write_to_file(fd, message, strlen(message));
+	}
+	
+	if(sys_call_table[__NR_GETDENTS] == (unsigned int) sysmap_sys_getdents) {
+		message = "getdents - OK\n";
+		write_to_file(fd, message, strlen(message));
+	} else {
+		hooked_syscalls++;
+		message = "getdents - NOT OK!\n";
+		write_to_file(fd, message, strlen(message));
+	}
+	
+	if(sys_call_table[__NR_GETDENTS64] == (unsigned int) sysmap_sys_getdents64) {
+		message = "getdents64 - OK\n";
+		write_to_file(fd, message, strlen(message));
+	} else {
+		hooked_syscalls++;
+		message = "getdents64 - NOT OK!\n";
+		write_to_file(fd, message, strlen(message));
+	}
+	
+	if(sys_call_table[__NR_GETDENTS] == (unsigned int) sysmap_sys_getdents) {
+		message = "getdents - OK\n";
+		write_to_file(fd, message, strlen(message));
+	} else {
+		hooked_syscalls++;
+		message = "getdents - NOT OK!\n";
+		write_to_file(fd, message, strlen(message));
+	}
+	
+	if(sys_call_table[__NR_RECVMSG] == (unsigned int) sysmap_sys_recvmsg) {
+		message = "recvmsg - OK\n";
+		write_to_file(fd, message, strlen(message));
+	} else {
+		hooked_syscalls++;
+		message = "recvmsg - NOT OK!\n";
+		write_to_file(fd, message, strlen(message));
+	}
+	
+	if(sys_call_table[__NR_OPEN] == (unsigned int) sysmap_sys_open) {
+		message = "open - OK\n";
+		write_to_file(fd, message, strlen(message));
+	} else {
+		hooked_syscalls++;
+		message = "open - NOT OK!\n";
+		write_to_file(fd, message, strlen(message));
+	}
+	
+	if(sys_call_table[__NR_CLOSE] == (unsigned int) sysmap_sys_close) {
+		message = "close - OK\n";
+		write_to_file(fd, message, strlen(message));
+	} else {
+		hooked_syscalls++;
+		message = "close - NOT OK!\n";
+		write_to_file(fd, message, strlen(message));
+	}
+	
+	if(sys_call_table[__NR_READLINK] == (unsigned int) sysmap_sys_readlink) {
+		message = "readlink - OK\n";
+		write_to_file(fd, message, strlen(message));
+	} else {
+		hooked_syscalls++;
+		message = "readlink - NOT OK!\n";
+		write_to_file(fd, message, strlen(message));
+	}
+	
+	if(sys_call_table[__NR_READLINKAT] == (unsigned int) sysmap_sys_readlinkat) {
+		message = "readlinkat - OK\n";
+		write_to_file(fd, message, strlen(message));
+	} else {
+		hooked_syscalls++;
+		message = "readlinkat - NOT OK!\n";
+		write_to_file(fd, message, strlen(message));
+	}
+	
+	if(sys_call_table[__NR_KILL] == (unsigned int) sysmap_sys_kill) {
+		message = "kill - OK\n";
+		write_to_file(fd, message, strlen(message));
+	} else {
+		hooked_syscalls++;
+		message = "kill - NOT OK!\n";
+		write_to_file(fd, message, strlen(message));
 	}
 
 	filp_close(fd, NULL);
