@@ -38,7 +38,9 @@ write_to_file(struct file * fd, char *buf, long len)
 	loff_t off = 0;
 	if (!IS_ERR (fd)) {
 		vfs_write(fd, buf, len, &off); 
-	}	
+	} else {
+		ROOTKIT_DEBUG("Some error.");
+	}
 }
 
 /*
