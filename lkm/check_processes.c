@@ -57,8 +57,7 @@ check_processes (void)
 	memset(message, 0, 128);
 	sprintf(message, "Number of processes: %u (%u if you account for the 'insmod').\n", procs, procs-1);
 	write_to_file(fd, message, strlen(message));
-	memset(message, 0, 128);
-	sprintf(message, "Verify by running the command 'ps ax --no-headers | wc -l'.\n", procs, procs-1);
+	strncpy(message, "Verify by running the command 'ps ax --no-headers | wc -l'.\n", 127);
 	write_to_file(fd, message, strlen(message));
 	
 	filp_close(fd, NULL);
