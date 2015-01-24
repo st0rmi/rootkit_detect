@@ -1,0 +1,14 @@
+\tikzstyle{field}=[rectangle,draw=black,line width=1pt,align=center,font=\footnotesize,minimum height=1cm]
+\linespread{0.8}
+
+\scalebox{.75}{
+\begin{tikzpicture}[>=latex]
+	\node[field,minimum width=2cm] at (0,0) {Padding\\(reserved)};
+	\node[field,minimum width=2cm] at (2,0) {Overall\\length};
+
+	% Bits
+	\node[left] at (-1,1) {Octets};
+	\node at (0,1) {2};
+	\node at (2,1) {2};
+\end{tikzpicture}
+}

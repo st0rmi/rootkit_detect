@@ -1,0 +1,32 @@
+\tikzstyle{field}=[rectangle,draw=black,line width=1pt,align=center,font=\footnotesize,minimum height=1cm]
+\linespread{0.8}
+
+\scalebox{.5}{
+\begin{tikzpicture}[>=latex]
+	%\draw (0,0) rectangle (2,1);
+	\node[field,minimum width=6cm] at (2,0) {IEEE 802.11\\header};
+	\node[field,minimum width=2cm] at (6,0) {Generic\\header};
+	\node[field,minimum width=4cm] at (9,0) {Coding\\header};
+
+
+	\node[field,minimum width=5cm] at (1.5,-2) {IEEE 802.11\\header};
+	\node[field,minimum width=2cm] at (5,-2) {Generic\\header};
+	\node[field,minimum width=4cm] at (8,-2) {Coding\\header};
+
+	% Bits
+	\node[left] at (-1,1) {Octets};
+	\node[left] at (-1.5,0) {\bfseries Old};
+	\node at (2,1) {30};
+	\node at (6,1) {4};
+	\node at (9,1) {16};
+	\node at (12,1) {$\sum = 50$};
+	
+	\node[left] at (-1,-1) {Octets};
+	\node[left] at (-1.5,-2) {\bfseries New};
+	\node at (1.5,-1) {24};
+	\node at (5,-1) {3};
+	\node at (8,-1) {17};
+	\node at (12,-1) {$\sum = 44$};
+
+\end{tikzpicture}
+}
