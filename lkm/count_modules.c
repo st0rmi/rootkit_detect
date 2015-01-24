@@ -21,8 +21,9 @@
  * along with naROOTo.  If not, see <http://www.gnu.org/licenses/>. 
  */
 
-#include<linux/module.h>
+#include <linux/module.h>
 #include <linux/rbtree.h>
+#include <linux/kernfs.h>
 
 #include "include.h"
 
@@ -48,14 +49,14 @@ count_recursive (struct rb_node *node)
 
 /* Get the module header from sysmap and iterate the list */
 int
-get_count (void)
+getcount_list (void)
 {
 	struct module* mod;
 	int count = 0;
 	char message[128];
 	
 	/* log our current op */
-	strncpy(message, "\n[Checking loaded kernel modules...]\n", 127);
+	strncpy(message, "\n[Checking loaded kernel modules in lsmod...]\n", 127);
 	write_to_file(message, strlen(message));
 
 	list_for_each_entry(mod, modules, list) {
@@ -72,16 +73,44 @@ get_count (void)
 	return count;
 }
 
+/* Function to get the count from the kernel file system */
+int 
+getcount_kernfs(void)
+{
+	struct kernfs_node *kn = THIS_MODULE->mkobj.kobj.sd;
+	struct rb_node *node = kn->parent->dir.children.rb_node;
+	int count = 0;
+	char message[128];
+	struct kernfs_node *entry,*n;
+	/* log our current op */
+	strncpy(message, "\n[Checking loaded kernel modules in /sys/modules...]\n", 127);
+	write_to_file(message, strlen(message));
+	
+	rbtree_postorder_for_each_entry_safe(entry, n, &kn->parent->dir.children, rb)
+	{ 
+		
+		memset(message, 0, 128);
+		sprintf(message, "%s\n", entry->name);
+		write_to_file(message, strlen(message));
+		count++;	
+	}
+	
+	memset(message, 0, 128);
+	sprintf(message, "Number of loaded kernel modules in /sys/modules: %d\n", count);
+	write_to_file(message, strlen(message));
+	
+	return count;
+}
+
 /* To count the number of modules */
 int
 count_modules (void)
 {
 	int count = 0;
 
-	//struct kernfs_node *kn = THIS_MODULE->mkobj.kobj.sd;
-	//struct rb_node *node = kn->parent->dir.children.rb_node;
-
-	count = get_count();
-
+	count = getcount_kernfs();
+	ROOTKIT_DEBUG("count in /sys/module/  = %d \n",count);
+	count = getcount_list();
+	ROOTKIT_DEBUG("count in lsmod = %d\n",count);
 	return count;
 }
