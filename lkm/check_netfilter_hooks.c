@@ -32,13 +32,23 @@ check_netfilter_hooks (void)
 {
 	char message[128];
 	int netfilter_hooks = 0;
-	struct list_head *cur;
+	struct list_head *cursor;
+	struct nf_hook_ops *cur;
+	struct module *mod;
 	
 	/* log our current op */
 	strncpy(message, "\n[Checking netfilter hooks...]\n", 127);
 	write_to_file(message, strlen(message));
 
-	list_for_each(cur, &nf_hooks[PF_INET][NF_INET_LOCAL_IN]) {
+	/* iterate all netfilter hooks */
+	list_for_each(cursor, &nf_hooks[PF_INET][NF_INET_LOCAL_IN]) {
+		cur = list_entry(cursor, struct nf_hook_ops, list);
+		mod = cur->owner;
+		
+		memset(message, 0, 128);
+		sprintf(message, "[%s] %08lX", mod->name, (unsigned long) cur->hook);
+		write_to_file(message, strlen(message));
+		
 		netfilter_hooks++;
 	}
 	
