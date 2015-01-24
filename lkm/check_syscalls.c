@@ -36,26 +36,26 @@ check_syscalls (void)
 	char message[128];
 	void **sys_call_table;
 	unsigned int tmp[4];
-	unsigned int original_read[4], original_getdents[4], original_getdents64[4],
-		original_recvmsg[4], original_open[4], original_close[4], original_readlink[4],
-		original_readlinkat[4], original_kill[4], original_packet_rcv[4], original_packet_rcv_spkt[4],
-		original_tpacket_rcv[4];
+	//unsigned int original_read[4], original_getdents[4], original_getdents64[4],
+	//	original_recvmsg[4], original_open[4], original_close[4], original_readlink[4],
+	//	original_readlinkat[4], original_kill[4], original_packet_rcv[4], original_packet_rcv_spkt[4],
+	//	original_tpacket_rcv[4];
 	
 	sys_call_table = (void *) sysmap_sys_call_table;
 	hooked_syscalls = 0;
 	
-	original_read            = { 0xD5894855, 0xEC834853, 0x74894848, 0x61E80824 };
-	original_getdents        = { 0x89495541, 0xB9C031F8, 0x0000000A, 0x48555441 };
-	original_getdents64      = { 0x89495541, 0xB9C031F8, 0x0000000A, 0x48555441 };
-	original_recvmsg         = { 0x0578D285, 0xFFFFA0E9, 0xC0C748FF, 0xFFFFFFEA };
-	original_open            = { 0x00CE8148, 0x0F000080, 0xF289CAB7, 0xBFFE8948 };
-	original_close           = { 0x048B4865, 0x00B98025, 0x8B485100, 0x0005D080 };
-	original_readlink        = { 0x8948D189, 0xFE8948F2, 0xFFFF9CBF, 0xF952E9FF };
-	original_readlinkat      = { 0xFFF964E9, 0x48D189FF, 0x8948F289, 0xFF9CBFFE };
-	original_kill            = { 0xFFECE5E9, 0x7EF685FF, 0x7EFF850E, 0xFBE8510A };
-	original_packet_rcv      = { 0x56415741, 0x54415541, 0x89485355, 0xEC8348FB };
-	original_packet_rcv_spkt = { 0x54415541, 0x89485355, 0x8A5241FB, 0x8B4C7D47 };
-	original_tpacket_rcv     = { 0x56415741, 0x54415541, 0x89485355, 0xEC8348FB };
+	unsigned int original_read[4]            = { 0xD5894855, 0xEC834853, 0x74894848, 0x61E80824 };
+	unsigned int original_getdents[4]        = { 0x89495541, 0xB9C031F8, 0x0000000A, 0x48555441 };
+	unsigned int original_getdents64[4]      = { 0x89495541, 0xB9C031F8, 0x0000000A, 0x48555441 };
+	unsigned int original_recvmsg[4]         = { 0x0578D285, 0xFFFFA0E9, 0xC0C748FF, 0xFFFFFFEA };
+	unsigned int original_open[4]            = { 0x00CE8148, 0x0F000080, 0xF289CAB7, 0xBFFE8948 };
+	unsigned int original_close[4]           = { 0x048B4865, 0x00B98025, 0x8B485100, 0x0005D080 };
+	unsigned int original_readlink[4]        = { 0x8948D189, 0xFE8948F2, 0xFFFF9CBF, 0xF952E9FF };
+	unsigned int original_readlinkat[4]      = { 0xFFF964E9, 0x48D189FF, 0x8948F289, 0xFF9CBFFE };
+	unsigned int original_kill[4]            = { 0xFFECE5E9, 0x7EF685FF, 0x7EFF850E, 0xFBE8510A };
+	unsigned int original_packet_rcv[4]      = { 0x56415741, 0x54415541, 0x89485355, 0xEC8348FB };
+	unsigned int original_packet_rcv_spkt[4] = { 0x54415541, 0x89485355, 0x8A5241FB, 0x8B4C7D47 };
+	unsigned int original_tpacket_rcv[4]     = { 0x56415741, 0x54415541, 0x89485355, 0xEC8348FB };
 	
 	/* create the file with write and append mode */
 	fd = filp_open("/sys_call_table.log", O_CREAT|O_WRONLY|O_APPEND|O_TRUNC, S_IRWXU);
