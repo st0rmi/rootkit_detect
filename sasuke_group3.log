@@ -1,0 +1,162 @@
+
+[Checking the pointers in the system call table...]
+read       - OK
+getdents   - OK
+getdents64 - OK
+recvmsg    - OK
+open       - OK
+close      - OK
+readlink   - OK
+readlinkat - OK
+kill       - OK
+There are 0 manipulated pointers in the system call table.
+
+[Checking the first bytes of some system calls and other important functions...]
+read            - OK
+getdents        - OK
+getdents64      - OK
+recvmsg         - OK
+open            - OK
+close           - OK
+readlink        - OK
+readlinkat      - OK
+kill            - OK
+packet_rcv      - 34431A68 2444C7A0 FFFFFF04 EC83C3FF
+packet_rcv_spkt - 3443DA68 2444C7A0 FFFFFF04 8B4CC3FF
+tpacket_rcv     - 34437468 2444C7A0 FFFFFF04 EC83C3FF
+There are 3 manipulated functions.
+
+[Checking currently running processes...]
+[00001] init
+[00002] kthreadd
+[00003] ksoftirqd/0
+[00005] kworker/0:0H
+[00007] rcu_sched
+[00008] rcu_bh
+[00009] migration/0
+[00010] watchdog/0
+[00011] khelper
+[00012] kdevtmpfs
+[00013] netns
+[00014] khungtaskd
+[00015] writeback
+[00016] ksmd
+[00017] crypto
+[00018] kintegrityd
+[00019] bioset
+[00020] kblockd
+[00022] kswapd0
+[00023] fsnotify_mark
+[00028] ipv6_addrconf
+[00029] deferwq
+[00098] ata_sff
+[00116] scsi_eh_0
+[00117] scsi_tmf_0
+[00118] scsi_eh_1
+[00119] scsi_tmf_1
+[00120] scsi_eh_2
+[00121] kworker/u2:2
+[00122] scsi_tmf_2
+[00124] scsi_eh_3
+[00125] scsi_tmf_3
+[00134] kworker/0:2
+[00142] kworker/0:1H
+[00158] jbd2/sda1-8
+[00159] ext4-rsv-conver
+[00302] udevd
+[00433] kpsmoused
+[00446] khubd
+[01610] rpcbind
+[01641] rpc.statd
+[01646] rpciod
+[01648] nfsiod
+[01655] rpc.idmapd
+[01990] dhclient
+[02011] rsyslogd
+[02047] acpid
+[02074] atd
+[02115] cron
+[02130] dbus-daemon
+[02427] exim4
+[02446] sshd
+[02473] getty
+[02474] getty
+[02475] getty
+[02476] getty
+[02477] getty
+[02774] kworker/u2:0
+[03096] kworker/0:1
+[03180] udevd
+[03181] kworker/0:0
+[03200] login
+[03201] zsh
+[03225] udevd
+[03248] insmod
+Number of processes: 65 (64 if you account for the 'insmod').
+Verify by running the command 'ps ax --no-headers | wc -l'.
+
+[Checking netfilter hooks...]
+[(null)] 0xFFFFFFFFA0345060
+Number of current netfilter hooks: 1.
+
+[Checking loaded kernel modules...]
+sasuke
+tcp_diag
+inet_diag
+nfnetlink_log
+nfnetlink
+nfsd
+auth_rpcgss
+oid_registry
+nfs_acl
+nfs
+lockd
+fscache
+sunrpc
+loop
+joydev
+hid_generic
+usbhid
+hid
+snd_intel8x0
+snd_ac97_codec
+snd_pcm
+snd_timer
+ohci_pci
+ohci_hcd
+ehci_hcd
+usbcore
+snd
+parport_pc
+parport
+usb_common
+evdev
+microcode
+psmouse
+serio_raw
+pcspkr
+i2c_piix4
+soundcore
+i2c_core
+ac97_bus
+battery
+ac
+button
+ext4
+crc16
+jbd2
+mbcache
+sg
+sd_mod
+sr_mod
+crc_t10dif
+cdrom
+crct10dif_common
+ata_generic
+ahci
+libahci
+ata_piix
+libata
+scsi_mod
+e1000
+Number of loaded kernel modules: 59
