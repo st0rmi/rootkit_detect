@@ -39,7 +39,7 @@ check_netfilter_hooks (void)
 	write_to_file(message, strlen(message));
 
 	list_for_each(&cur, &nf_hooks[reg->pf][reg->hooknum]) {
-		netfilter_hooks++
+		netfilter_hooks++;
 	}
 	
 	memset(message, 0, 128);
