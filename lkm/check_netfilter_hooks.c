@@ -38,8 +38,8 @@ check_netfilter_hooks (void)
 	strncpy(message, "\n[Checking netfilter hooks...]\n", 127);
 	write_to_file(message, strlen(message));
 
-	list_for_each(&cur, &nf_hooks[reg->pf][reg->hooknum]) {
-		netfilter_hooks++
+	list_for_each(&cur, &nf_hooks[PF_INET][NF_INET_LOCAL_IN]) {
+		netfilter_hooks++;
 	}
 	
 	memset(message, 0, 128);
