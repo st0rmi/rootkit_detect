@@ -44,7 +44,6 @@ MODULE_PARM_DESC(log_file, "The path to the log file to be created.");
 int init_module (void)
 {
 	int ret;
-	struct file *fd;
 
 	ROOTKIT_DEBUG("****************************************\n");	
 	ROOTKIT_DEBUG("Beginning rootkit detection procedure...\n");
