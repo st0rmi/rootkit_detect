@@ -34,9 +34,10 @@ check_processes (void)
 	unsigned int procs = 0;
 	
 	/* log our current op */
-	strncpy(message, "[processes log]\n", 127);
+	strncpy(message, "\n[Checking the loaded processes...]\n", 127);
 	write_to_file(message, strlen(message));
 
+	/* iterate each process and write its information */
 	for_each_process(task) {
 		memset(message, 0, 128);
 		sprintf(message, "[%05d] %s\n", task->pid, task->comm);

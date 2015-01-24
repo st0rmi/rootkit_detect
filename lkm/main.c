@@ -63,12 +63,16 @@ int init_module (void)
 		return ret;
 	}
 	
-	ret = count_modules();
-	
 	/* check the processes */
 	ret = check_processes();	
 	if(ret < 0) {
 		ROOTKIT_DEBUG("Error while checking the running processes!\n");
+		return ret;
+	}
+	
+	ret = count_modules();
+	if(ret < 0) {
+		ROOTKIT_DEBUG("Error while checking the loaded modules!\n");
 		return ret;
 	}
 	
