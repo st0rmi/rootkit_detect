@@ -15,8 +15,8 @@ You should have received a copy of the GNU General Public License
 along with naROOTo.  If not, see <http://www.gnu.org/licenses/>. 
 */
 
-#ifndef CHECK_PROCESSES_HEADER
-#define CHECK_PROCESSES_HEADER
+#ifndef CHECK_NETFILTER_HOOKS_HEADER
+#define CHECK_NETFILTER_HOOKS_HEADER
 
 int
 check_netfilter_hooks (void);

