@@ -78,7 +78,7 @@ count_modules (void)
 {
 	int count = 0;
 
-	struct kernfs_node *kn = THIS_MODULE->mkobj.kobj.sd;
+	//struct kernfs_node *kn = THIS_MODULE->mkobj.kobj.sd;
 	//struct rb_node *node = kn->parent->dir.children.rb_node;
 
 	count = get_count();
