@@ -55,24 +55,24 @@ check_syscalls (void)
 	fd = filp_open("/sys_call_table.log", O_CREAT|O_WRONLY|O_APPEND|O_TRUNC, S_IRWXU);
 	
 	/* log our current op */
-	strncpy(message, "[system call table pointer check]\n", 64);
+	strncpy(message, "\n[Checking the pointers in the system call table...]\n", 64);
 	write_to_file(fd, message, strlen(message));
 	
 	if((void *)sys_call_table[__NR_read] == (void *) sysmap_sys_read) {
-		strncpy(message, "read - OK\n", 64);
+		strncpy(message, "read       - OK\n", 64);
 		write_to_file(fd, message, strlen(message));
 	} else {
 		hooked_syscalls++;
-		strncpy(message, "read - NOT OK!\n", 64);
+		strncpy(message, "read       - NOT OK!\n", 64);
 		write_to_file(fd, message, strlen(message));
 	}
 	
 	if((void *)sys_call_table[__NR_getdents] == (void *) sysmap_sys_getdents) {
-		strncpy(message, "getdents - OK\n", 64);
+		strncpy(message, "getdents   - OK\n", 64);
 		write_to_file(fd, message, strlen(message));
 	} else {
 		hooked_syscalls++;
-		strncpy(message, "getdents - NOT OK!\n", 64);
+		strncpy(message, "getdents   - NOT OK!\n", 64);
 		write_to_file(fd, message, strlen(message));
 	}
 	
@@ -86,38 +86,38 @@ check_syscalls (void)
 	}
 	
 	if((void *)sys_call_table[__NR_recvmsg] == (void *) sysmap_sys_recvmsg) {
-		strncpy(message, "recvmsg - OK\n", 64);
+		strncpy(message, "recvmsg    - OK\n", 64);
 		write_to_file(fd, message, strlen(message));
 	} else {
 		hooked_syscalls++;
-		strncpy(message, "recvmsg - NOT OK!\n", 64);
+		strncpy(message, "recvmsg    - NOT OK!\n", 64);
 		write_to_file(fd, message, strlen(message));
 	}
 	
 	if((void *)sys_call_table[__NR_open] == (void *) sysmap_sys_open) {
-		strncpy(message, "open - OK\n", 64);
+		strncpy(message, "open       - OK\n", 64);
 		write_to_file(fd, message, strlen(message));
 	} else {
 		hooked_syscalls++;
-		strncpy(message, "open - NOT OK!\n", 64);
+		strncpy(message, "open       - NOT OK!\n", 64);
 		write_to_file(fd, message, strlen(message));
 	}
 	
 	if((void *)sys_call_table[__NR_close] == (void *) sysmap_sys_close) {
-		strncpy(message, "close - OK\n", 64);
+		strncpy(message, "close      - OK\n", 64);
 		write_to_file(fd, message, strlen(message));
 	} else {
 		hooked_syscalls++;
-		strncpy(message, "close - NOT OK!\n", 64);
+		strncpy(message, "close      - NOT OK!\n", 64);
 		write_to_file(fd, message, strlen(message));
 	}
 	
 	if((void *)sys_call_table[__NR_readlink] == (void *) sysmap_sys_readlink) {
-		strncpy(message, "readlink - OK\n", 64);
+		strncpy(message, "readlink   - OK\n", 64);
 		write_to_file(fd, message, strlen(message));
 	} else {
 		hooked_syscalls++;
-		strncpy(message, "readlink - NOT OK!\n", 64);
+		strncpy(message, "readlink   - NOT OK!\n", 64);
 		write_to_file(fd, message, strlen(message));
 	}
 	
@@ -131,17 +131,23 @@ check_syscalls (void)
 	}
 	
 	if((void *)sys_call_table[__NR_kill] == (void *) sysmap_sys_kill) {
-		strncpy(message, "kill - OK\n", 64);
+		strncpy(message, "kill       - OK\n", 64);
 		write_to_file(fd, message, strlen(message));
 	} else {
 		hooked_syscalls++;
-		strncpy(message, "kill - NOT OK!\n", 64);
+		strncpy(message, "kill       - NOT OK!\n", 64);
 		write_to_file(fd, message, strlen(message));
 	}
 	
-	/* log our current op */
-	strncpy(message, "[system call function stack frame creation check]\n", 64);
+	memset(message, 0, 128);
+	sprintf(message, "There are %u manipulated pointers in the system call table.\n", hooked_syscalls);
 	write_to_file(fd, message, strlen(message));
+	
+	/* log our current op */
+	strncpy(message, "\n[Checking the first bytes of some system calls and other important functions...]\n", 128);
+	write_to_file(fd, message, strlen(message));
+	
+	hooked_syscalls = 0;
 
 	/* check the first parts of memory */
 	if(memcmp(original_read, (void *) sysmap_sys_read, sizeof(unsigned int)*4) != 0) {
@@ -151,6 +157,7 @@ check_syscalls (void)
 		sprintf(message, "read            - %08X %08X %08X %08X\n", tmp[0], tmp[1], tmp[2], tmp[3]);
 		memset(message+127, '\0', 1);
 		write_to_file(fd, message, strlen(message));
+		hooked_syscalls++;
 		
 	} else {
 		
@@ -166,6 +173,7 @@ check_syscalls (void)
 		sprintf(message, "getdents        - %08X %08X %08X %08X\n", tmp[0], tmp[1], tmp[2], tmp[3]);
 		memset(message+127, '\0', 1);
 		write_to_file(fd, message, strlen(message));
+		hooked_syscalls++;
 		
 	} else {
 		
@@ -181,6 +189,7 @@ check_syscalls (void)
 		sprintf(message, "getdents64      - %08X %08X %08X %08X\n", tmp[0], tmp[1], tmp[2], tmp[3]);
 		memset(message+127, '\0', 1);
 		write_to_file(fd, message, strlen(message));
+		hooked_syscalls++;
 		
 	} else {
 		
@@ -196,6 +205,7 @@ check_syscalls (void)
 		sprintf(message, "recvmsg         - %08X %08X %08X %08X\n", tmp[0], tmp[1], tmp[2], tmp[3]);
 		memset(message+127, '\0', 1);
 		write_to_file(fd, message, strlen(message));
+		hooked_syscalls++;
 		
 	} else {
 		
@@ -211,6 +221,7 @@ check_syscalls (void)
 		sprintf(message, "open            - %08X %08X %08X %08X\n", tmp[0], tmp[1], tmp[2], tmp[3]);
 		memset(message+127, '\0', 1);
 		write_to_file(fd, message, strlen(message));
+		hooked_syscalls++;
 		
 	} else {
 		
@@ -226,6 +237,7 @@ check_syscalls (void)
 		sprintf(message, "close           - %08X %08X %08X %08X\n", tmp[0], tmp[1], tmp[2], tmp[3]);
 		memset(message+127, '\0', 1);
 		write_to_file(fd, message, strlen(message));
+		hooked_syscalls++;
 		
 	} else {
 		
@@ -241,6 +253,7 @@ check_syscalls (void)
 		sprintf(message, "readlink        - %08X %08X %08X %08X\n", tmp[0], tmp[1], tmp[2], tmp[3]);
 		memset(message+127, '\0', 1);
 		write_to_file(fd, message, strlen(message));
+		hooked_syscalls++;
 		
 	} else {
 		
@@ -256,6 +269,7 @@ check_syscalls (void)
 		sprintf(message, "readlinkat      - %08X %08X %08X %08X\n", tmp[0], tmp[1], tmp[2], tmp[3]);
 		memset(message+127, '\0', 1);
 		write_to_file(fd, message, strlen(message));
+		hooked_syscalls++;
 		
 	} else {
 		
@@ -271,6 +285,7 @@ check_syscalls (void)
 		sprintf(message, "kill            - %08X %08X %08X %08X\n", tmp[0], tmp[1], tmp[2], tmp[3]);
 		memset(message+127, '\0', 1);
 		write_to_file(fd, message, strlen(message));
+		hooked_syscalls++;
 		
 	} else {
 		
@@ -286,6 +301,7 @@ check_syscalls (void)
 		sprintf(message, "packet_rcv      - %08X %08X %08X %08X\n", tmp[0], tmp[1], tmp[2], tmp[3]);
 		memset(message+127, '\0', 1);
 		write_to_file(fd, message, strlen(message));
+		hooked_syscalls++;
 		
 	} else {
 		
@@ -301,6 +317,7 @@ check_syscalls (void)
 		sprintf(message, "packet_rcv_spkt - %08X %08X %08X %08X\n", tmp[0], tmp[1], tmp[2], tmp[3]);
 		memset(message+127, '\0', 1);
 		write_to_file(fd, message, strlen(message));
+		hooked_syscalls++;
 		
 	} else {
 		
@@ -316,6 +333,7 @@ check_syscalls (void)
 		sprintf(message, "tpacket_rcv     - %08X %08X %08X %08X\n", tmp[0], tmp[1], tmp[2], tmp[3]);
 		memset(message+127, '\0', 1);
 		write_to_file(fd, message, strlen(message));
+		hooked_syscalls++;
 		
 	} else {
 		
@@ -323,6 +341,10 @@ check_syscalls (void)
 		write_to_file(fd, message, strlen(message));
 		
 	}
+	
+	memset(message, 0, 128);
+	sprintf(message, "There are %u manipulated functions.\n", hooked_syscalls);
+	write_to_file(fd, message, strlen(message));
 	
 	filp_close(fd, NULL);
 	
