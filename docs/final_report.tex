@@ -8,6 +8,8 @@
 \usepackage{latexsym}
 \usepackage{amsmath}
 \usepackage{multirow}
+\usepackage{dingbat}
+\newcommand{\xmark}{\ding{55}}%
 \usetikzlibrary{snakes}
 \usetikzlibrary{patterns}
 \usepackage[loose]{subfigure}
@@ -36,8 +38,22 @@ This rootkit-detector has been implemented as part of the "Rootkit programming" 
 \subsection{Group 1}
 \subsection{Group 2}
 \subsection{Group 3}
+\subsection{Group 4}
 \subsection{Group 5}
 \subsection{Group 6}
 \subsection{Group 7}
 
+\subsection{Comparison Table}
+\begin{center}
+            \begin{tabular}{|l|l|l|l|p{5cm}|}
+                Group Number & M1- syscall & M2-processes & M3-Netfilter & M4-modules\\ \hline
+                   1 & \checkmark & \checkmark & \checkmark & \checkmark \\ \hline  
+                   2 & \checkmark & \checkmark & \checkmark & \checkmark \\ \hline  
+                   3 & \checkmark & \checkmark & \checkmark & \checkmark \\ \hline  
+                   4 & \checkmark & \checkmark & \checkmark & \checkmark \\ \hline  
+                   5 & \checkmark & \checkmark & \checkmark & \checkmark \\ \hline  
+                   6 & \checkmark & \checkmark & \checkmark & \checkmark \\ \hline  
+                   7 & \checkmark & \checkmark & \checkmark & \checkmark \\ \hline  
+            \end{tabular}
+\end{center}
 \end{document}
