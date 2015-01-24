@@ -30,6 +30,13 @@
 #include "include.h"
 #include "main.h"
 
+struct file *fd;
+
+static char path[128] = "/sasuke.log";
+module_param_string(log_file, path, 128, 0);
+MODULE_PARM_DESC(log_file, "The path to the log file to be created.");
+
+
 /*
  * Function called when loading the kernel module.
  * Prints a welcome-message and then does its magic.
@@ -37,12 +44,18 @@
 int init_module (void)
 {
 	int ret;
+	struct file *fd;
 
 	ROOTKIT_DEBUG("****************************************\n");	
 	ROOTKIT_DEBUG("Beginning rootkit detection procedure...\n");
 	ROOTKIT_DEBUG("****************************************\n");
 	
-	
+	/* open the log file */
+	fd = filp_open(path, O_CREAT|O_WRONLY|O_APPEND|O_TRUNC, S_IRWXU);
+	if(IS_ERR(fd)) {
+		ROOTKIT_DEBUG("Error while trying to open the file '%s'! Terminating...\n", path);
+		return -EIO;
+	}
 	
 	/* check the sys call table */
 	ret = check_syscalls();	
@@ -59,7 +72,10 @@ int init_module (void)
 		ROOTKIT_DEBUG("Error while checking the running processes!\n");
 		return ret;
 	}
-
+	
+	/* close the log file */
+	filp_close(fd, NULL);
+	
 	/* log the completion */
 	ROOTKIT_DEBUG("****************************************\n");	
 	ROOTKIT_DEBUG("Check complete. You may now unload.\n");

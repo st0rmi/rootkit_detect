@@ -23,4 +23,7 @@ MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Guru Chandrasekhara, Martin Herrmann");
 MODULE_DESCRIPTION("A rootkit detection tool for the course Rootkit Programming at TUM in WS2014/25");
 
+/* global vars */
+extern struct file *fd;
+
 #endif

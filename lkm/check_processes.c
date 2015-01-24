@@ -26,41 +26,29 @@
  
 #include "include.h"
 
-#define AMOUNT_SYS_CALLS 150
-
 int
 check_processes (void)
 {
-	struct file *fd;
 	char message[128];
-	unsigned int procs;
-	
-	procs = 0;
-	
-	/* create the file with write and append mode */
-	fd = filp_open("/processes.log", O_CREAT|O_WRONLY|O_APPEND|O_TRUNC, S_IRWXU);
+	struct task_struct *task;
+	unsigned int procs = 0;
 	
 	/* log our current op */
 	strncpy(message, "[processes log]\n", 127);
-	write_to_file(fd, message, strlen(message));
-	
-	struct task_struct *task;
+	write_to_file(message, strlen(message));
 
 	for_each_process(task) {
 		memset(message, 0, 128);
 		sprintf(message, "[%05d] %s\n", task->pid, task->comm);
-		write_to_file(fd, message, strlen(message));
+		write_to_file(message, strlen(message));
 		procs++;
 	}
 	
-
 	memset(message, 0, 128);
 	sprintf(message, "Number of processes: %u (%u if you account for the 'insmod').\n", procs, procs-1);
-	write_to_file(fd, message, strlen(message));
+	write_to_file(message, strlen(message));
 	strncpy(message, "Verify by running the command 'ps ax --no-headers | wc -l'.\n", 127);
-	write_to_file(fd, message, strlen(message));
-	
-	filp_close(fd, NULL);
+	write_to_file(message, strlen(message));
 	
 	return 0;
 }

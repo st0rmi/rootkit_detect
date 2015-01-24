@@ -29,23 +29,26 @@
 #include <linux/slab.h>
 
 #include "include.h"
+#include "main.h"
 
 /*
  * Function used for local logging.
  */
 void
-write_to_file(struct file * fd, char *buf, long len)
+write_to_file(char *buf, long len)
 {
-	mm_segment_t old_fs;
-	int ret;
 	loff_t off = 0;
+	mm_segment_t old_fs;
+	
 	if (!IS_ERR (fd)) {
 		old_fs = get_fs();
 		set_fs(get_ds());
-		ret=vfs_write(fd, buf, len, &off);
+		
+		vfs_write(fd, buf, len, &off);
+		
 		set_fs(old_fs); 
 	} else {
-		ROOTKIT_DEBUG("Some error.");
+		ROOTKIT_DEBUG("%s\n", buf);
 	}
 }
 
