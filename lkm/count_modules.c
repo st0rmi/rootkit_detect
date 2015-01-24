@@ -28,64 +28,60 @@
 
 struct list_head *modules = (struct list_head *) sysmap_modules;
 
-/* Get the modules from the kernfs tree 
+/*
+ * Get the modules from the kernfs tree 
  * Not working right now
  */
-int count_recursive(struct rb_node *node)
+int
+count_recursive (struct rb_node *node)
 {
-        if(node == NULL) return 0;
+	if(node == NULL)
+		return 0;
 
-        if(node->rb_left == NULL && node->rb_right == NULL)
-        {
-                return 0;
-        }
-        else
-        {
-                return count_recursive(node->rb_left) + count_recursive(node->rb_right) +1;
-        }
+	if(node->rb_left == NULL && node->rb_right == NULL) {
+		return 0;
+	} else {
+		return count_recursive(node->rb_left) + count_recursive(node->rb_right) + 1;
+	}
 
 }
 
 /* Get the module header from sysmap and iterate the list */
-int get_count(void)
+int
+get_count (void)
 {
 	struct module* mod;
 	int count = 0;
 	char message[128];
 	
 	/* log our current op */
-	strncpy(message, "[modules log]\n", 127);
+	strncpy(message, "\n[Checking loaded kernel modules...]\n", 127);
 	write_to_file(message, strlen(message));
-		
+
 	list_for_each_entry(mod, modules, list) {
-		
-		//strncpy(message, mod->name, 127);
 		memset(message, 0, 128);
 		sprintf(message, "%s\n", mod->name);
 		write_to_file(message, strlen(message));
-		//ROOTKIT_DEBUG("%s\n",mod->name);
 		count++;
 	}
-	
-		memset(message, 0, 128);
-		sprintf(message, "Number of processes = %d\n", count);
-		write_to_file(message, strlen(message));
+
+	memset(message, 0, 128);
+	sprintf(message, "Number of loaded kernel modules: %d\n", count);
+	write_to_file(message, strlen(message));
 
 	return count;
 }
 
 /* To count the number of modules */
-int count_modules(void)
+int
+count_modules (void)
 {
 	int count = 0;
 
 	struct kernfs_node *kn = THIS_MODULE->mkobj.kobj.sd;
 	struct rb_node *node = kn->parent->dir.children.rb_node;
 
-	//count = count_recursive(node);
 	count = get_count();
-
-	ROOTKIT_DEBUG("Total number of modules = %d\n",count);
 
 	return count;
 }
