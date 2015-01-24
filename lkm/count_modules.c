@@ -51,29 +51,25 @@ int get_count(void)
 {
 	struct module* mod;
 	int count = 0;
-	struct file *fd;
 	char message[128];
-  	
-	/* create the file with write and append mode */
-	fd = filp_open("/modules.log", O_CREAT|O_WRONLY|O_APPEND|O_TRUNC, S_IRWXU);
 	
 	/* log our current op */
 	strncpy(message, "[modules log]\n", 127);
-	write_to_file(fd, message, strlen(message));
+	write_to_file(message, strlen(message));
 		
 	list_for_each_entry(mod, modules, list) {
 		
 		//strncpy(message, mod->name, 127);
 		memset(message, 0, 128);
 		sprintf(message, "%s\n", mod->name);
-		write_to_file(fd, message, strlen(message));
+		write_to_file(message, strlen(message));
 		//ROOTKIT_DEBUG("%s\n",mod->name);
 		count++;
 	}
 	
 		memset(message, 0, 128);
 		sprintf(message, "Number of processes = %d\n", count);
-		write_to_file(fd, message, strlen(message));
+		write_to_file(message, strlen(message));
 
 	return count;
 }
