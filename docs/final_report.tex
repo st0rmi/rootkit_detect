@@ -168,7 +168,7 @@ As you can easily see, the pointers to the \texttt{read}, \texttt{getdents}, and
 \subsubsection{Detecting hidden processes}
 While a manipulated \texttt{getdents} system call may be indicative of hidden processes (the \texttt{ps} command uses the \emph{proc}-filesystem), there are other ways to further analyse this.
 The kernel provides the macro \texttt{for\_each\_process} which can be used to iterate every process that is getting scheduled.
-If there is a process that is displayed in the kernel but not inside user-space it can be assumed that there is something malicious happening.
+If there is a process that is displayed in the kernel but not inside user-space, it can be assumed that there is something malicious happening.
 
 The following code is an excerpt from our detection of hidden processes:
 
@@ -192,14 +192,56 @@ for_each_process(task) {
 }
 \end{lstlisting}
 
-After the loop the number of detected processes is also written to the log file.
+After looping, the number of detected processes is also written to the log file.
 This way the user can easily compare the number to the one he gets from user-space programs such as \texttt{ps}.
 They will usually not match, though.
-The reason for this is that the LKM will also display a \texttt{insmod} process, because this is all happening while the module is being inserted.
-The user-space count will also include the processes that are used for counting.
+The reason for this is that the LKM will also display an \texttt{insmod} process, because this is all happening while the module is still being inserted.
+The user-space count will also include the processes that are used for counting (like \texttt{ps ax} and \texttt{wc -l}).
 After removing all processes which would only be present in one of the two checks, the user is left with two process counts.
-If they do not match one can assume one or more maliciously hidden processes.
+If they do not match maliciously hidden processes can safely be assumed.
 
+\subsubsection{Detecting netfilter hooks}
+A very easy and clean way to implement port knocking is using the netfilter API already provided by the kernel.
+As easy as it is to use it is also to detect.
+The reason for this is that the kernel exports the \texttt{nf\_hooks} symbol which can be used to list all present hooks.
+If a standard kernel is used (as is the case for all virtual machines used in this course), there should be no hooks present.
+Because of this one can assume each hook in this situation to be hostile.
+The following code excerpt checks for hooks:
+
+\lstset{language=C,
+	basicstyle=\ttfamily,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{green}\ttfamily,
+	morecomment=[l][\color{magenta}]{\#}
+}
+\begin{lstlisting}
+#include <linux/list.h>
+#include <linux/netfilter.h>
+
+struct list_head *cursor;
+struct nf_hook_ops *cur;
+struct module *mod;
+
+/* iterate all netfilter hooks */
+list_for_each(cursor, &nf_hooks[PF_INET][NF_INET_LOCAL_IN]) {
+	cur = list_entry(cursor, struct nf_hook_ops, list);
+	mod = cur->owner;
+	
+	memset(message, 0, 128);
+	sprintf(message, "[%s] 0x%08lX\n", mod->name, (unsigned long) cur->hook);
+	write_to_file(message, strlen(message));
+	
+	netfilter_hooks++;
+}
+\end{lstlisting}
+
+\texttt{PF\_INET} specifies that only hooks to the IPv4 stack should be displayed if they are coming to or from this machine (\texttt{NF\_INET\_LOCAL\_IN}).
+
+The fact that there is a field containing the owner is extremely interesting.
+If a careless attacker were to set this correctly, it would be a huge vulnerability.
+This field contains a copy of the \texttt{struct module} which uniquely identifies a module within the kernel.
+Using this we would be able to insert a hidden module back into the appropriate kernel data structures and unload it cleanly using the \texttt{rmmod} command.
 
 \subsection{Shell script}\label{sec:script}
 
