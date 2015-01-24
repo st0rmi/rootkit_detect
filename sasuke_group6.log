@@ -1,0 +1,166 @@
+
+[Checking the pointers in the system call table...]
+read       - NOT OK!
+getdents   - NOT OK!
+getdents64 - OK
+recvmsg    - NOT OK!
+open       - OK
+close      - OK
+readlink   - OK
+readlinkat - OK
+kill       - OK
+There are 3 manipulated pointers in the system call table.
+
+[Checking the first bytes of some system calls and other important functions...]
+read            - OK
+getdents        - OK
+getdents64      - OK
+recvmsg         - OK
+open            - OK
+close           - OK
+readlink        - OK
+readlinkat      - OK
+kill            - OK
+packet_rcv      - OK
+packet_rcv_spkt - OK
+tpacket_rcv     - FFFF6866 FFFF6866 A0346866 9C446866
+There are 1 manipulated functions.
+
+[Checking currently running processes...]
+[00001] init
+[00002] kthreadd
+[00003] ksoftirqd/0
+[00005] kworker/0:0H
+[00007] rcu_sched
+[00008] rcu_bh
+[00009] migration/0
+[00010] watchdog/0
+[00011] watchdog/1
+[00012] migration/1
+[00013] ksoftirqd/1
+[00015] kworker/1:0H
+[00016] khelper
+[00017] kdevtmpfs
+[00018] netns
+[00019] khungtaskd
+[00020] writeback
+[00021] ksmd
+[00022] crypto
+[00023] kintegrityd
+[00024] bioset
+[00025] kblockd
+[00027] kswapd0
+[00028] fsnotify_mark
+[00033] ipv6_addrconf
+[00034] kworker/1:1
+[00035] deferwq
+[00125] ata_sff
+[00131] scsi_eh_0
+[00136] scsi_tmf_0
+[00143] kworker/u4:2
+[00155] kworker/0:1H
+[00177] jbd2/sda1-8
+[00178] ext4-rsv-conver
+[00187] kworker/1:1H
+[00325] udevd
+[00475] scsi_eh_1
+[00476] scsi_tmf_1
+[00478] scsi_eh_2
+[00479] scsi_tmf_2
+[00481] kpsmoused
+[00495] khubd
+[01653] rpcbind
+[01684] rpc.statd
+[01689] rpciod
+[01691] nfsiod
+[01698] rpc.idmapd
+[01961] rsyslogd
+[02013] atd
+[02080] cron
+[02090] acpid
+[02374] exim4
+[02401] login
+[02402] getty
+[02403] getty
+[02404] getty
+[02405] getty
+[02406] getty
+[02407] bash
+[02497] dhclient
+[02538] sshd
+[02660] kworker/u4:0
+[02663] udevd
+[02675] kworker/0:1
+[02815] kworker/1:2
+[02834] sshd
+[02849] kworker/0:2
+[02858] udevd
+[03801] sudo
+[03802] insmod
+Number of processes: 70 (69 if you account for the 'insmod').
+Verify by running the command 'ps ax --no-headers | wc -l'.
+
+[Checking netfilter hooks...]
+Number of current netfilter hooks: 0.
+
+[Checking loaded kernel modules...]
+sasuke
+nls_utf8
+nls_cp437
+vfat
+fat
+usb_storage
+nfsd
+auth_rpcgss
+oid_registry
+nfs_acl
+nfs
+lockd
+fscache
+sunrpc
+loop
+joydev
+hid_generic
+usbhid
+hid
+sg
+ohci_pci
+ohci_hcd
+ehci_hcd
+usbcore
+snd_pcm
+snd_timer
+sr_mod
+cdrom
+ata_generic
+snd
+soundcore
+psmouse
+serio_raw
+pcspkr
+i2c_piix4
+i2c_core
+ata_piix
+usb_common
+evdev
+parport_pc
+parport
+e1000
+processor
+thermal_sys
+microcode
+battery
+ac
+button
+ext4
+crc16
+mbcache
+jbd2
+sd_mod
+crc_t10dif
+crct10dif_common
+ahci
+libahci
+libata
+scsi_mod
+Number of loaded kernel modules: 59

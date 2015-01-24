@@ -14,17 +14,11 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with naROOTo.  If not, see <http://www.gnu.org/licenses/>. 
 */
-#include "include.h"
 
-#ifndef MAIN_HEADER
-#define MAIN_HEADER
+#ifndef CHECK_NETFILTER_HOOKS_HEADER
+#define CHECK_NETFILTER_HOOKS_HEADER
 
-/* Information for modinfo */
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Guru Chandrasekhara, Martin Herrmann");
-MODULE_DESCRIPTION("A rootkit detection tool for the course Rootkit Programming at TUM in WS2014/25");
-
-/* global vars */
-extern struct file *fd;
+int
+check_netfilter_hooks (void);
 
 #endif

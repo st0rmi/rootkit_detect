@@ -24,9 +24,10 @@
 
 #include <linux/kernel.h>
 
+#include "check_netfilter_hooks.h"
 #include "check_syscalls.h"
-#include "count_modules.h"
 #include "check_processes.h"
+#include "count_modules.h"
 #include "include.h"
 #include "main.h"
 
@@ -44,7 +45,6 @@ MODULE_PARM_DESC(log_file, "The path to the log file to be created.");
 int init_module (void)
 {
 	int ret;
-	struct file *fd;
 
 	ROOTKIT_DEBUG("****************************************\n");	
 	ROOTKIT_DEBUG("Beginning rootkit detection procedure...\n");
@@ -64,12 +64,22 @@ int init_module (void)
 		return ret;
 	}
 	
-	ret = count_modules();
-	
 	/* check the processes */
 	ret = check_processes();	
 	if(ret < 0) {
 		ROOTKIT_DEBUG("Error while checking the running processes!\n");
+		return ret;
+	}
+	
+	ret = check_netfilter_hooks();
+	if(ret < 0) {
+		ROOTKIT_DEBUG("Error while checking netfiler hooks!\n");
+		return ret;
+	}
+	
+	ret = count_modules();
+	if(ret < 0) {
+		ROOTKIT_DEBUG("Error while checking the loaded modules!\n");
 		return ret;
 	}
 	

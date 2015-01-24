@@ -1,6 +1,6 @@
 /******************************************************************************
  *
- * Name: count_modules.c 
+ * Name: check_syscalls.c 
  * 
  *
  *****************************************************************************/
@@ -20,68 +20,41 @@
  * You should have received a copy of the GNU General Public License
  * along with naROOTo.  If not, see <http://www.gnu.org/licenses/>. 
  */
-
-#include<linux/module.h>
-#include <linux/rbtree.h>
-
+ 
+#include <linux/list.h>
+#include <linux/netfilter.h>
+#include <linux/string.h>
+ 
 #include "include.h"
 
-struct list_head *modules = (struct list_head *) sysmap_modules;
-
-/*
- * Get the modules from the kernfs tree 
- * Not working right now
- */
 int
-count_recursive (struct rb_node *node)
+check_netfilter_hooks (void)
 {
-	if(node == NULL)
-		return 0;
-
-	if(node->rb_left == NULL && node->rb_right == NULL) {
-		return 0;
-	} else {
-		return count_recursive(node->rb_left) + count_recursive(node->rb_right) + 1;
-	}
-
-}
-
-/* Get the module header from sysmap and iterate the list */
-int
-get_count (void)
-{
-	struct module* mod;
-	int count = 0;
 	char message[128];
+	int netfilter_hooks = 0;
+	struct list_head *cursor;
+	struct nf_hook_ops *cur;
+	struct module *mod;
 	
 	/* log our current op */
-	strncpy(message, "\n[Checking loaded kernel modules...]\n", 127);
+	strncpy(message, "\n[Checking netfilter hooks...]\n", 127);
 	write_to_file(message, strlen(message));
 
-	list_for_each_entry(mod, modules, list) {
+	/* iterate all netfilter hooks */
+	list_for_each(cursor, &nf_hooks[PF_INET][NF_INET_LOCAL_IN]) {
+		cur = list_entry(cursor, struct nf_hook_ops, list);
+		mod = cur->owner;
+		
 		memset(message, 0, 128);
-		sprintf(message, "%s\n", mod->name);
+		sprintf(message, "[%s] 0x%08lX\n", mod->name, (unsigned long) cur->hook);
 		write_to_file(message, strlen(message));
-		count++;
+		
+		netfilter_hooks++;
 	}
-
+	
 	memset(message, 0, 128);
-	sprintf(message, "Number of loaded kernel modules: %d\n", count);
+	sprintf(message, "Number of current netfilter hooks: %u.\n", netfilter_hooks);
 	write_to_file(message, strlen(message));
-
-	return count;
-}
-
-/* To count the number of modules */
-int
-count_modules (void)
-{
-	int count = 0;
-
-	//struct kernfs_node *kn = THIS_MODULE->mkobj.kobj.sd;
-	//struct rb_node *node = kn->parent->dir.children.rb_node;
-
-	count = get_count();
-
-	return count;
+	
+	return 0;
 }
