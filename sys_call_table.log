@@ -1,0 +1,23 @@
+[system call table pointer check]
+read - OK
+getdents - OK
+getdents64 - OK
+recvmsg - OK
+open - OK
+close - OK
+readlink - OK
+readlinkat - OK
+kill - OK
+[system call function stack frame creation check]
+read            - D5894855 EC834853 74894848 61E80824
+getdents        - 89495541 B9C031F8 0000000A 48555441
+getdents64      - 89495541 B9C031F8 0000000A 48555441
+recvmsg         - 0578D285 FFFFA0E9 C0C748FF FFFFFFEA
+open            - 00CE8148 0F000080 F289CAB7 BFFE8948
+close           - 048B4865 00B98025 8B485100 0005D080
+readlink        - 8948D189 FE8948F2 FFFF9CBF F952E9FF
+readlinkat      - FFF964E9 48D189FF 8948F289 FF9CBFFE
+kill            - FFECE5E9 7EF685FF 7EFF850E FBE8510A
+packet_rcv      - 56415741 54415541 89485355 EC8348FB
+packet_rcv_spkt - 54415541 89485355 8A5241FB 8B4C7D47
+tpacket_rcv     - 56415741 54415541 89485355 EC8348FB
