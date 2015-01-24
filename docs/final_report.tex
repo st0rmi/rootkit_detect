@@ -9,7 +9,8 @@
 \usepackage{amsmath}
 \usepackage{multirow}
 \usepackage{dingbat}
-\newcommand{\xmark}{\ding{55}}%
+\usepackage{pifont}
+\newcommand{\xmark}{\ding{55}}
 \usetikzlibrary{snakes}
 \usetikzlibrary{patterns}
 \usepackage[loose]{subfigure}
@@ -243,29 +244,41 @@ If a careless attacker were to set this correctly, it would be a huge vulnerabil
 This field contains a copy of the \texttt{struct module} which uniquely identifies a module within the kernel.
 Using this we would be able to insert a hidden module back into the appropriate kernel data structures and unload it cleanly using the \texttt{rmmod} command.
 
+\subsubsection{Hidden LKM detection}
+TODO
+
 \subsection{Shell script}\label{sec:script}
+TODO
 
 \section{Detection}\label{sec:detection}
-
+We ran our detection tools on the virtual machine of each group.
+We also ran it on our own group to be able to compare it to the other rootkits.
 \subsection{Group 1}
+Would not compile.
 \subsection{Group 2}
+
 \subsection{Group 3}
 \subsection{Group 4}
+We were able to detect three manipulated pointers in the system call table. The manipulated system calls where \texttt{read}, \texttt{getdents}, and \texttt{recvmsg}. We furthermore found another three functions which had manipulated instructions: \texttt{packet\_rcv}, \texttt{packet\_rcv\_spkt}, and \texttt{tpacket\_rcv}.
+We found one hidden process: \texttt{dropbear} with pid \emph{3187}.
+We found one netfilter hook for IPv4 packets destined for or originating from the virtual machine.
+We were not able to directly uncover a hidden module.
+
 \subsection{Group 5}
 \subsection{Group 6}
 \subsection{Group 7}
 
 \subsection{Comparison of the different rootkits}
 \begin{center}
-            \begin{tabular}{|l|l|l|l|p{5cm}|}
-                Group Number & M1- syscall & M2-processes & M3-Netfilter & M4-modules\\ \hline
-                   1 & \checkmark & \checkmark & \checkmark & \checkmark \\ \hline  
-                   2 & \checkmark & \checkmark & \checkmark & \checkmark \\ \hline  
-                   3 & \checkmark & \checkmark & \checkmark & \checkmark \\ \hline  
-                   4 & \checkmark & \checkmark & \checkmark & \checkmark \\ \hline  
-                   5 & \checkmark & \checkmark & \checkmark & \checkmark \\ \hline  
-                   6 & \checkmark & \checkmark & \checkmark & \checkmark \\ \hline  
-                   7 & \checkmark & \checkmark & \checkmark & \checkmark \\ \hline  
+            \begin{tabular}{l|l|l|l|l|l|}
+                & SysCall Pointer & SysCall Instructions & PID hidden from \emph{/proc} & NF hook & Hidden modules\\ \hline
+                   Group 1 &  &  &  &  & \\ \hline  
+                   Group 2 &  &  &  &  & \\ \hline  
+                   Group 3 & \xmark & \checkmark & ? & \checkmark & \xmark \\ \hline  
+                   Group 4 & \checkmark & \checkmark & \checkmark & \checkmark & \xmark \\ \hline  
+                   Group 5 &  &  &  &  & \\ \hline  
+                   Group 6 & \checkmark & \checkmark & \checkmark & \xmark (?!)& \xmark \\ \hline  
+                   Group 7 & \checkmark & \checkmark & ? & \checkmark & \xmark \\
             \end{tabular}
 \end{center}
 
