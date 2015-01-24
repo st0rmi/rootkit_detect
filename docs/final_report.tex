@@ -167,6 +167,37 @@ As you can easily see, the pointers to the \texttt{read}, \texttt{getdents}, and
 
 \subsubsection{Detecting hidden processes}
 While a manipulated \texttt{getdents} system call may be indicative of hidden processes (the \texttt{ps} command uses the \emph{proc}-filesystem), there are other ways to further analyse this.
+The kernel provides the macro \texttt{for\_each\_process} which can be used to iterate every process that is getting scheduled.
+If there is a process that is displayed in the kernel but not inside user-space it can be assumed that there is something malicious happening.
+
+The following code is an excerpt from our detection of hidden processes:
+
+\lstset{language=C,
+	basicstyle=\ttfamily,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{green}\ttfamily,
+	morecomment=[l][\color{magenta}]{\#}
+}
+\begin{lstlisting}
+#include <linux/sched.h>
+
+struct task_struct *task;
+
+for_each_process(task) {
+	memset(message, 0, 128);
+	sprintf(message, "[%05d] %s\n", task->pid, task->comm);
+	write_to_file(message, strlen(message));
+	procs++;
+}
+\end{lstlisting}
+
+After the loop the number of detected processes is also written to the log file.
+This way the user can easily compare the number to the one he gets from user-space programs such as \texttt{ps}.
+They will usually not match, though.
+The reason for this is that the LKM will also display a \texttt{insmod} process, because this is all happening while the module is being inserted.
+The user-space count will also include the processes that are used for counting.
+
 
 \subsection{Shell script}\label{sec:script}
 
