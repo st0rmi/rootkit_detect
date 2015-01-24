@@ -88,10 +88,15 @@ getcount_kernfs(void)
 	
 	rbtree_postorder_for_each_entry_safe(entry, n, &kn->parent->dir.children, rb)
 	{ 
-		
+		char buf[250];
 		memset(message, 0, 128);
-		sprintf(message, "%s\n", entry->name);
+		sprintf(message, "%s\n", kernfs_path(entry,buf,250));
 		write_to_file(message, strlen(message));
+		
+		
+	/*	memset(message, 0, 128);
+		sprintf(message, "%s\n", entry->parent->name);
+		write_to_file(message, strlen(message)); */
 		count++;	
 	}
 	
