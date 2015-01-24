@@ -46,7 +46,7 @@ check_netfilter_hooks (void)
 		mod = cur->owner;
 		
 		memset(message, 0, 128);
-		sprintf(message, "[%s] %08lX", mod->name, (unsigned long) cur->hook);
+		sprintf(message, "[%s] 0x%08lX\n", mod->name, (unsigned long) cur->hook);
 		write_to_file(message, strlen(message));
 		
 		netfilter_hooks++;
