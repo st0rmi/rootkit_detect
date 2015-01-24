@@ -20,35 +20,30 @@
  * You should have received a copy of the GNU General Public License
  * along with naROOTo.  If not, see <http://www.gnu.org/licenses/>. 
  */
-
+ 
+#include <linux/list.h>
+#include <linux/netfilter.h>
 #include <linux/string.h>
-#include <linux/sched.h>
  
 #include "include.h"
 
 int
-check_processes (void)
+check_netfilter_hooks (void)
 {
 	char message[128];
-	struct task_struct *task;
-	unsigned int procs = 0;
+	int netfilter_hooks = 0;
+	struct list_head cur;
 	
 	/* log our current op */
-	strncpy(message, "\n[Checking currently running processes...]\n", 127);
+	strncpy(message, "\n[Checking netfilter hooks...]\n", 127);
 	write_to_file(message, strlen(message));
 
-	/* iterate each process and write its information */
-	for_each_process(task) {
-		memset(message, 0, 128);
-		sprintf(message, "[%05d] %s\n", task->pid, task->comm);
-		write_to_file(message, strlen(message));
-		procs++;
+	list_for_each(&cur, &nf_hooks[reg->pf][reg->hooknum]) {
+		netfilter_hooks++
 	}
 	
 	memset(message, 0, 128);
-	sprintf(message, "Number of processes: %u (%u if you account for the 'insmod').\n", procs, procs-1);
-	write_to_file(message, strlen(message));
-	strncpy(message, "Verify by running the command 'ps ax --no-headers | wc -l'.\n", 127);
+	sprintf(message, "Number of current netfilter hooks: %u.\n", netfilter_hooks);
 	write_to_file(message, strlen(message));
 	
 	return 0;
