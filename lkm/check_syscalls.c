@@ -38,7 +38,6 @@ check_syscalls (void)
 	unsigned int original_read[4]            = { 0xD5894855, 0xEC834853, 0x74894848, 0x61E80824 };
 	unsigned int original_getdents[4]        = { 0x89495541, 0xB9C031F8, 0x0000000A, 0x48555441 };
 	unsigned int original_getdents64[4]      = { 0x89495541, 0xB9C031F8, 0x0000000A, 0x48555441 };
-	unsigned int original_readdir[4]         = { 0x00000000, 0x00000000, 0x00000000, 0x00000000 };
 	unsigned int original_recvmsg[4]         = { 0x0578D285, 0xFFFFA0E9, 0xC0C748FF, 0xFFFFFFEA };
 	unsigned int original_open[4]            = { 0x00CE8148, 0x0F000080, 0xF289CAB7, 0xBFFE8948 };
 	unsigned int original_close[4]           = { 0x048B4865, 0x00B98025, 0x8B485100, 0x0005D080 };
@@ -77,15 +76,6 @@ check_syscalls (void)
 	} else {
 		hooked_syscalls++;
 		strncpy(message, "getdents64 - NOT OK!\n", 64);
-		write_to_file(message, strlen(message));
-	}
-	
-	if((void *)sys_call_table[__NR_readdir] == (void *) sysmap_sys_readdir) {
-		strncpy(message, "readdir    - OK\n", 64);
-		write_to_file(message, strlen(message));
-	} else {
-		hooked_syscalls++;
-		strncpy(message, "readdir    - NOT OK!\n", 64);
 		write_to_file(message, strlen(message));
 	}
 	
@@ -198,22 +188,6 @@ check_syscalls (void)
 	} else {
 		
 		strncpy(message, "getdents64      - OK\n", 64);
-		write_to_file(message, strlen(message));
-		
-	}
-	
-	if(memcmp(original_readdir, (void *) sysmap_sys_readdir, sizeof(unsigned int)*4) != 0) {
-
-		memcpy(tmp, (void *) sysmap_sys_getdents64, sizeof(unsigned int)*4);
-		memset(message, 0, 128);
-		sprintf(message, "readdir         - %08X %08X %08X %08X\n", tmp[0], tmp[1], tmp[2], tmp[3]);
-		memset(message+127, '\0', 1);
-		write_to_file(message, strlen(message));
-		hooked_syscalls++;
-		
-	} else {
-		
-		strncpy(message, "readdir         - OK\n", 64);
 		write_to_file(message, strlen(message));
 		
 	}
