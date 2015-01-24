@@ -197,6 +197,8 @@ This way the user can easily compare the number to the one he gets from user-spa
 They will usually not match, though.
 The reason for this is that the LKM will also display a \texttt{insmod} process, because this is all happening while the module is being inserted.
 The user-space count will also include the processes that are used for counting.
+After removing all processes which would only be present in one of the two checks, the user is left with two process counts.
+If they do not match one can assume one or more maliciously hidden processes.
 
 
 \subsection{Shell script}\label{sec:script}
