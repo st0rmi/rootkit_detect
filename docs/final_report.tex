@@ -352,13 +352,30 @@ We determined that while they removed their rootkit from the list of modules, th
 
 
 \subsection{Group 4}
-We were able to detect three manipulated pointers in the system call table. The manipulated system calls where \texttt{read}, \texttt{getdents}, and \texttt{recvmsg}. We furthermore found another three functions which had manipulated instructions: \texttt{packet\_rcv}, \texttt{packet\_rcv\_spkt}, and \texttt{tpacket\_rcv}.
-We found one hidden process: \texttt{dropbear} with pid \emph{3187}.
+We were able to detect our own rootkit using our tools.
+The user-mode script showed the hidden \texttt{dropbear} process (PID \texttt{3187}) which is listening on TCP port \texttt{9999}.
+Using the LKM we were able to detect three manipulated pointers in the system call table. The manipulated system calls where \texttt{read}, \texttt{getdents}, and \texttt{recvmsg}. We furthermore found another three functions which had manipulated instructions: \texttt{packet\_rcv}, \texttt{packet\_rcv\_spkt}, and \texttt{tpacket\_rcv}.
 We found one netfilter hook for IPv4 packets destined for or originating from the virtual machine.
 We were not able to directly uncover a hidden module.
 
 \subsection{Group 5}
+This groups virtual machine was also behaving weirdly.
+Changing the used DNS server in \texttt{/etc/resolv.conf} to \texttt{8.8.8.8} and then using ping caused a kernel panic.
+Furthermore \texttt{ssh} and \texttt{scp} were not working.
+
+The user-mode checks revealed that they are using a \texttt{nc} server (PID \texttt{2529}) listening on TCP port \texttt{4321} as a remote shell.
+They also use a shell script (PID \texttt{2515}) to manage this.
+Both processes are hidden.
+The shell script itself is hidden from commands like \texttt{ls}. It's location is \texttt{/root/asdfghja.sh}.
+
+Using our LKM we were able to further determine that they manipulated the first instructions of the \texttt{read}, \texttt{recvmsg}, \texttt{packet\_rcv\_spkt}, and \texttt{tpacket\_rcv} functions/system calls. We also detected that they are using a netfilter hook for their port knocking.
+
 \subsection{Group 6}
+The user-mode checks revealed that group 6 is running a hidden \texttt{sshd} process (PID \texttt{2834} on TCP port \texttt{7865}.
+Using our LKM we determined that the pointers to the system calls \texttt{read}, \texttt{getdents}, and \texttt{recvmsg} are manipulated.
+Furthermore, the first few instructions of the \texttt{tpacket\_rcv} functions are manipulated, too.
+Port knocking didn't seem to be enabled, there were no netfilter hooks and we could simply connect to the hidden \texttt{sshd}.
+
 \subsection{Group 7}
 
 \subsection{Comparison of the different rootkits}
@@ -369,8 +386,8 @@ We were not able to directly uncover a hidden module.
                    Group 2 & \checkmark & \checkmark & \checkmark & \xmark & \checkmark \\ \hline  
                    Group 3 & \xmark & \checkmark & ? & \checkmark & \xmark \\ \hline  
                    Group 4 & \checkmark & \checkmark & \checkmark & \checkmark & \xmark \\ \hline  
-                   Group 5 &  &  &  &  & \\ \hline  
-                   Group 6 & \checkmark & \checkmark & \checkmark & \xmark (?!)& \xmark \\ \hline  
+                   Group 5 & \xmark & \checkmark & \checkmark & \checkmark & \xmark \\ \hline  
+                   Group 6 & \checkmark & \checkmark & \checkmark & \xmark & \xmark \\ \hline  
                    Group 7 & \checkmark & \checkmark & ? & \checkmark & \xmark \\
             \end{tabular}
 \end{center}
