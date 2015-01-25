@@ -49,4 +49,4 @@ echo "[[PROCESS CHECK]]"
 get_procs
 
 echo "[[TCP SOCKET CHECK]]"
-check_sockets
+get_sockets
