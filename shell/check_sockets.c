@@ -1,3 +1,8 @@
+/*
+ * Example taken form: http://www.linuxhowtos.org/data/6/server.c
+ * Adapter for our purposes.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

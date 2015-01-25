@@ -9,6 +9,23 @@ if [ $(id -u) != "0" ]; then
 	exit 1
 fi
 
+function get_sockets
+{
+	echo "Compiling check_sockets..."
+	cc -o check_sockets check_sockets.c > /dev/null
+
+	for port in `seq 1 65535`;
+	do
+		check_sockets $pid 1> /dev/null 2> /dev/null
+		if [ $? -eq 1 ];
+			echo "$pid is in use"
+		fi
+	done;
+	
+	rm check_sockets
+}
+
+
 function get_procs
 {
 	echo "Listing potentially maliciously hidden processes."
@@ -29,3 +46,5 @@ function get_procs
 }
 
 get_procs
+
+check_sockets
