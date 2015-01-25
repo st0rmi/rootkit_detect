@@ -89,16 +89,106 @@ There are 3 manipulated functions.
 [02842] sshd
 [02844] bash
 [02892] kworker/0:0
-[02931] udevd
 [02939] udevd
-[03312] insmod
+[03379] udevd
+[03970] insmod
 Number of processes: 65 (64 if you account for the 'insmod').
 Verify by running the command 'ps ax --no-headers | wc -l'.
 
 [Checking netfilter hooks...]
 Number of current netfilter hooks: 0.
 
-[Checking loaded kernel modules...]
+[Checking loaded kernel modules in /sys/modules...]
+/module/ac
+/module/sg
+/module/tcp_diag
+/module/nfs
+/module/hid
+/module/vt
+/module/8250
+/module/acpi
+/module/tcp_cubic
+/module/snd
+/module/ext4
+/module/jbd2
+/module/loop
+/module/i2c_core
+/module/nfsd
+/module/serio_raw
+/module/cpuidle
+/module/ipv6
+/module/ahci
+/module/usb_common
+/module/crct10dif_common
+/module/e1000
+/module/dns_resolver
+/module/cdrom
+/module/block
+/module/i8042
+/module/auth_rpcgss
+/module/lockd
+/module/evdev
+/module/snd_ac97_codec
+/module/i2c_piix4
+/module/sysrq
+/module/snd_intel8x0
+/module/snd_timer
+/module/chytryroot
+/module/mbcache
+/module/firmware_class
+/module/libahci
+/module/crc16
+/module/rcutree
+/module/snd_pcm
+/module/spurious
+/module/scsi_mod
+/module/button
+/module/ohci_hcd
+/module/ohci_pci
+/module/fscache
+/module/netpoll
+/module/ehci_hcd
+/module/nfs_acl
+/module/joydev
+/module/soundcore
+/module/ata_generic
+/module/apparmor
+/module/mousedev
+/module/hid_generic
+/module/libata
+/module/pcspkr
+/module/pciehp
+/module/acpiphp
+/module/kernel
+/module/pstore
+/module/sd_mod
+/module/sasuke
+/module/oid_registry
+/module/usbhid
+/module/sunrpc
+/module/sr_mod
+/module/crc_t10dif
+/module/8250_core
+/module/battery
+/module/usbcore
+/module/parport
+/module/ac97_bus
+/module/parport_pc
+/module/microcode
+/module/ata_piix
+/module/pcie_aspm
+/module/inet_diag
+/module/intel_idle
+/module/psmouse
+/module/pci_hotplug
+/module/keyboard
+/module/rcupdate
+/module/xz_dec
+/module/printk
+/module/workqueue
+Number of loaded kernel modules in /sys/modules: 87
+
+[Checking loaded kernel modules in lsmod...]
 sasuke
 tcp_diag
 inet_diag

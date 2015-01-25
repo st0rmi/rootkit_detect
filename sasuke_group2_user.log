@@ -1,0 +1,38 @@
+[[PROCESS CHECK]]
+[Listing potentially maliciously hidden processes.]
+[Note that most of these are nothing to worry about.]
+0 
+1 init [2]
+2 
+3 
+5 
+6 
+7 
+8 
+9 
+11 
+12 
+14 
+15 
+16 
+18 
+19 
+20 
+21 
+22 
+23 
+28 
+29 
+123 
+1961 /usr/sbin/rsyslogd-c5
+1963 /usr/sbin/rsyslogd-c5
+1964 /usr/sbin/rsyslogd-c5
+2842 sshd: root@pts/1
+[[TCP SOCKET CHECK]]
+[Compiling check_sockets...]
+[OK]
+22 is in use
+25 is in use
+111 is in use
+5167 is in use
+46149 is in use

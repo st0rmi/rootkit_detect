@@ -38,7 +38,7 @@ Our kernel-mode detection program consists of a single kernel module.
 Once inserted, it will run multiple tests and write a detection log to a file.
 Using this we were able to detect every rootkit in at least one way (most in multiple ways).
 
-Our user-mode detection program, on the other hand, consists of a shell script.
+Our user-mode detection program, on the other hand, consists of a shell script and a c program.
 While it is expected to be run with root privileges, it will not try to insert any kernel code to accomplish its task.
 
 Chapter \ref{sec:design} will describe the details of the implementation. Chapter \ref{sec:detection} will give an overview over the different rootkits and describe which tests the failed and which they passed.
@@ -245,27 +245,142 @@ This field contains a copy of the \texttt{struct module} which uniquely identifi
 Using this we would be able to insert a hidden module back into the appropriate kernel data structures and unload it cleanly using the \texttt{rmmod} command.
 
 \subsubsection{Hidden LKM detection}
-TODO
+%TODO
+Detection of the hidden LKM depends how safely it's hidden from the kernel data structures. 
+Inorder to hide from the \texttt{/sys/modules} one can delete \texttt{kobj} or remove from the \texttt{kern\_fs}. 
+If one just deletes the \texttt{kobj}, we can still access the hidden module from the \texttt{kern\_fs} tree and check 
+against the modules in the \texttt{/sys/modules}. By this way we can detect the hidden modules. 
+If one delets module from the \texttt{kern\_fs} (like \texttt{naROOTo} did), then it's hard to detect the module.
 
-\subsection{Shell script}\label{sec:script}
-TODO
+\subsection{Detection from user-space}\label{sec:script}
+We also wrote a tool which can detect rootkits from user-space.
+It's functionality is limited to two different checks but performs those extremely well.
+Furthermore, because of its simplicity, it is able to run on almost any Linux system.
+It can be used to detect hidden processes as well as hidden sockets.
+It consists of a helper programm written in C and a shell script which does most of the work.
+
+\subsubsection{C programm for TCP socket detection}
+To detect hidden sockets the helper program is necessary.
+It expects a single integer as parameter and interprets this as TCP port to bind to.
+If another process is already listening on this socket (whether it is hidden or not), binding to it will fail.
+This program is being compiled and called by our main shell script.
+
+\subsubsection{Shell script}
+The shell script first checks whether it is running with root privileges.
+Afterwards it uses the command \texttt{kill -0} on every possible PID.
+The reason for this is that while a process might not be shown in the \emph{proc}-filesystem, it is usually still able to receive signals.
+For each detected process it then checks whether there is a corresponding folder in the \emph{proc}-filesystem.
+If this is not the case, its PID and the instructions used to start the process are printed:
+
+\lstset{language=bash,
+	basicstyle=\ttfamily,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{green}\ttfamily,
+	morecomment=[l][\color{magenta}]{\#}
+}
+\begin{lstlisting}
+PID_MAX=$(cat /proc/sys/kernel/pid_max)
+
+for pid in `seq 0 $PID_MAX`; do
+	kill -0 $pid 1> /dev/null 2> /dev/null
+	
+	if [ $? -eq 0 ]; then
+		if [ $(ls /proc | grep -o $pid | wc -l) != "1" ]; then
+			echo "$pid $(cat /proc/$pid/cmdline)"
+		fi
+	fi
+done;
+\end{lstlisting}
+
+Even though this may sound fool-proof, there is a catch: maliciously hidden processes are not the only processes which are detected.
+Depending on the system configuration, there might be a varying number of processes that are essentially hidden.
+The command \texttt{kill -0} will work on them and they will have a directory within \emph{proc} that is not visible.
+Gnome is a very good example for this.
+It causes a lot of such processes to be present.
+Usually a maliciously hidden process will stand out, though.
+They tend to be towards the end of this list (as they are usually started after the system is fully booted) and were in this case always providing remote access, making them easily detectable.
+
+To show all opened TCP sockets we are using the helper program, as was already stated before.
+This program is written in C and compiled by the shell script on demand.
+The shell script then iterates each possible port and instructs the program to try to bind to it:
+\lstset{language=bash,
+	basicstyle=\ttfamily,
+	keywordstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	commentstyle=\color{green}\ttfamily,
+	morecomment=[l][\color{magenta}]{\#}
+}
+\begin{lstlisting}
+cc -o check_sockets check_sockets.c > /dev/null && echo "[OK]"
+
+if [ $? -eq 1 ]; then
+	echo "Compilation failed!"
+	exit 1
+fi
+
+for port in `seq 1 65535`; do
+	./check_sockets $port 1> /dev/null 2> /dev/null
+	if [ $? -eq 1 ]; then
+		echo "$port is in use"
+	fi
+done;
+
+rm ./check_sockets
+\end{lstlisting}
+
+The results are not filtered for known "good" ports.
+It is solely the users responsibility to check whether they are maliciously open or not.
+This script, of course, takes some time to terminate, as it has to check every possible PID and every possible TCP port manually.
 
 \section{Detection}\label{sec:detection}
 We ran our detection tools on the virtual machine of each group.
 We also ran it on our own group to be able to compare it to the other rootkits.
 \subsection{Group 1}
 Would not compile.
+
 \subsection{Group 2}
+The machine of group two was demonstrating some weird behavior (e.g. \texttt{ip} command not working) which immediately indicated tampering.
+Trying to connect to the machine using \texttt{scp} was also extremely slow.
+
+The user-mode checks revealed the presence of a hidden \texttt{sshd}-process with PID \texttt{2842} which is listening on port \texttt{5167}.
+After further analysis using our LKM, further evidence of a rootkit were detected.
+The pointers to the \texttt{read} and \texttt{recvmsg} system calls were manipulated.
+Furthermore, the first instructions of the \texttt{packet\_rcv}, \texttt{packet\_rcv\_spkt}, and \texttt{tpacket\_rcv} functions were also manipulated.
+
+After looking through the \emph{kernfs} we were able to find an entry which stood out: \texttt{chytryroot}.
+We determined that while they removed their rootkit from the list of modules, they neglected to remove it from the \emph{kernfs}, too.
 
 \subsection{Group 3}
+
+
+
+
 \subsection{Group 4}
-We were able to detect three manipulated pointers in the system call table. The manipulated system calls where \texttt{read}, \texttt{getdents}, and \texttt{recvmsg}. We furthermore found another three functions which had manipulated instructions: \texttt{packet\_rcv}, \texttt{packet\_rcv\_spkt}, and \texttt{tpacket\_rcv}.
-We found one hidden process: \texttt{dropbear} with pid \emph{3187}.
+We were able to detect our own rootkit using our tools.
+The user-mode script showed the hidden \texttt{dropbear} process (PID \texttt{3187}) which is listening on TCP port \texttt{9999}.
+Using the LKM we were able to detect three manipulated pointers in the system call table. The manipulated system calls where \texttt{read}, \texttt{getdents}, and \texttt{recvmsg}. We furthermore found another three functions which had manipulated instructions: \texttt{packet\_rcv}, \texttt{packet\_rcv\_spkt}, and \texttt{tpacket\_rcv}.
 We found one netfilter hook for IPv4 packets destined for or originating from the virtual machine.
 We were not able to directly uncover a hidden module.
 
 \subsection{Group 5}
+This groups virtual machine was also behaving weirdly.
+Changing the used DNS server in \texttt{/etc/resolv.conf} to \texttt{8.8.8.8} and then using ping caused a kernel panic.
+Furthermore \texttt{ssh} and \texttt{scp} were not working.
+
+The user-mode checks revealed that they are using a \texttt{nc} server (PID \texttt{2529}) listening on TCP port \texttt{4321} as a remote shell.
+They also use a shell script (PID \texttt{2515}) to manage this.
+Both processes are hidden.
+The shell script itself is hidden from commands like \texttt{ls}. It's location is \texttt{/root/asdfghja.sh}.
+
+Using our LKM we were able to further determine that they manipulated the first instructions of the \texttt{read}, \texttt{recvmsg}, \texttt{packet\_rcv\_spkt}, and \texttt{tpacket\_rcv} functions/system calls. We also detected that they are using a netfilter hook for their port knocking.
+
 \subsection{Group 6}
+The user-mode checks revealed that group 6 is running a hidden \texttt{sshd} process (PID \texttt{2834} on TCP port \texttt{7865}.
+Using our LKM we determined that the pointers to the system calls \texttt{read}, \texttt{getdents}, and \texttt{recvmsg} are manipulated.
+Furthermore, the first few instructions of the \texttt{tpacket\_rcv} functions are manipulated, too.
+Port knocking didn't seem to be enabled, there were no netfilter hooks and we could simply connect to the hidden \texttt{sshd}.
+
 \subsection{Group 7}
 
 \subsection{Comparison of the different rootkits}
@@ -273,11 +388,11 @@ We were not able to directly uncover a hidden module.
             \begin{tabular}{l|l|l|l|l|l|}
                 & SysCall Pointer & SysCall Instructions & PID hidden from \emph{/proc} & NF hook & Hidden modules\\ \hline
                    Group 1 &  &  &  &  & \\ \hline  
-                   Group 2 &  &  &  &  & \\ \hline  
+                   Group 2 & \checkmark & \checkmark & \checkmark & \xmark & \checkmark \\ \hline  
                    Group 3 & \xmark & \checkmark & ? & \checkmark & \xmark \\ \hline  
                    Group 4 & \checkmark & \checkmark & \checkmark & \checkmark & \xmark \\ \hline  
-                   Group 5 &  &  &  &  & \\ \hline  
-                   Group 6 & \checkmark & \checkmark & \checkmark & \xmark (?!)& \xmark \\ \hline  
+                   Group 5 & \xmark & \checkmark & \checkmark & \checkmark & \xmark \\ \hline  
+                   Group 6 & \checkmark & \checkmark & \checkmark & \xmark & \xmark \\ \hline  
                    Group 7 & \checkmark & \checkmark & ? & \checkmark & \xmark \\
             \end{tabular}
 \end{center}
