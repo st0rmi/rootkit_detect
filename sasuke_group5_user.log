@@ -1,0 +1,36 @@
+[[PROCESS CHECK]]
+[Listing potentially maliciously hidden processes.]
+[Note that most of these are nothing to worry about.]
+0 
+1 init [2]
+2 
+3 
+5 
+6 
+7 
+8 
+9 
+10 
+13 
+14 
+16 
+17 
+18 
+20 
+165 
+168 
+169 
+2038 /usr/sbin/rsyslogd-c5
+2039 /usr/sbin/rsyslogd-c5
+2040 /usr/sbin/rsyslogd-c5
+2515 bash./asdfghja.sh
+2529 nc-lp4321-e/bin/bash
+[[TCP SOCKET CHECK]]
+[Compiling check_sockets...]
+[OK]
+22 is in use
+25 is in use
+111 is in use
+4321 is in use
+33113 is in use
+55021 is in use
