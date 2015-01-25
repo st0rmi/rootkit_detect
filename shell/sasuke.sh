@@ -17,7 +17,7 @@ function get_sockets
 	for port in `seq 1 65535`;
 	do
 		check_sockets $pid 1> /dev/null 2> /dev/null
-		if [ $? -eq 1 ];
+		if [ $? -eq 1 ]; then
 			echo "$pid is in use"
 		fi
 	done;
