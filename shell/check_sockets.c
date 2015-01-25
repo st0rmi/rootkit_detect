@@ -19,7 +19,7 @@ main (int argc, char *argv[])
 	}
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
 	if (sockfd < 0) {
-		fprintf(stderr,"Error opening socket.");
+		fprintf(stderr,"Error opening socket.\n");
 		exit(1);
 	}
 	
@@ -30,7 +30,7 @@ main (int argc, char *argv[])
 	serv_addr.sin_port = htons(portno);
 	if (bind(sockfd, (struct sockaddr *) &serv_addr,
 			sizeof(serv_addr)) < 0) {
-		fprintf(stderr, "Error binding to socket.");
+		fprintf(stderr, "Error binding to socket.\n");
 		exit(1);
 	}
 	
