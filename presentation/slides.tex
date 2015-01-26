@@ -1,0 +1,207 @@
+\documentclass[xcolor=svgnames, english]{beamer}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{beamerthemeshadow}
+\usepackage{graphicx}
+\usepackage{listing}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\beamersetuncovermixins{\opaqueness<1>{25}}{\opaqueness<2->{15}}
+\setbeamercovered{invisible}
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{footline}
+{%
+  \leavevmode%
+ \begin{beamercolorbox}%
+    [wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm]%
+    {author in head/foot}%
+    \usebeamerfont{author in head/foot}%
+    \hfill\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}%
+    [wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm ,rightskip=.3cm]%
+    {title in head/foot}%
+    \usebeamerfont{title in head/foot}%
+    \insertshorttitle\hfill\insertframenumber{}/\inserttotalframenumber
+  \end{beamercolorbox}%
+}%
+
+\newcommand{\red}[1]{\color{red} #1 \color{black}}
+\renewcommand{\example}[2]{\begin{exampleblock}{#1}#2\end{exampleblock}}
+
+\setcounter{tocdepth}{1}
+
+\newcounter{examplecounter} \setcounter{examplecounter}{0}
+\newcounter{myi} \setcounter{myi}{0}
+\newcounter{myh} \setcounter{myh}{0}
+
+\definecolor{darkgreen}{rgb}{0,0.6,0}
+
+\title[naROOTo \& S.A.S.U.K.E.]{naROOTo \& S.A.S.U.K.E.}
+\subtitle{Rootkit Programming 2014/2015}
+\author{Guru Chandrasekhara, Martin Herrmann}
+\institute{Technische Universität München}
+\date{January 26, 2015}
+
+\begin{document}
+% --------------------------- SLIDE --------------------------------------------
+\frame[plain]{\titlepage}
+% ------------------------------------------------------------------------------
+\frame{
+	\setbeamercolor{normal text}{bg=white,fg=black}
+	\frametitle{Overview}
+	\tableofcontents
+	%[pausesections]
+}
+\section{naROOTo}
+	\frame{\frametitle{Overview}
+		\tableofcontents[currentsection]
+	}
+	
+    \frame{\frametitle{System call hooking}
+        \begin{itemize}
+            \item<+-> Making write-protected memory writable using the CPU control register \texttt{cr0}
+            \item<+-> Changing the pointers in the system call table
+            \item<+-> Overwriting the first few instructions in selected functions (PUSH then RET hooking)
+            \item<+-> \textbf{Problem:} Some processes don't leave \texttt{read} very fast causing slow unloading
+        \end{itemize}
+	}
+
+    \frame{\frametitle{Hooked System calls}
+        \begin{itemize}
+            \item<+-> \texttt{read}: keylogging, covert communication
+            \item<+-> \texttt{getdents}: file hiding, process hiding (via \texttt{/proc})
+            \item<+-> \texttt{recvmsg}: socket hiding (TCP in \texttt{ss})
+        \end{itemize}
+	}
+
+    \frame{\frametitle{Other hooked functions}
+        \begin{itemize}
+            \item<+-> \texttt{packet\_rcv}, \texttt{packet\_rcv\_spkt}, \texttt{tpacket\_rcv}: packet hiding
+            \item<+-> \texttt{show()} (for \texttt{/proc/tcp}): socket hiding (TCP in \texttt{ss})
+            \item<+-> \texttt{show()} (for \texttt{/proc/udp}): socket hiding (UDP in \texttt{netstat} and \texttt{ss})
+        \end{itemize}
+	}
+
+    \frame{\frametitle{Hiding modules}
+        \begin{itemize}
+            \item<+-> Removing them from the list containing all \texttt{struct module *}
+            \item<+-> Removing them from the \texttt{kernfs} tree
+            \item<+-> Can hide multiple modules
+            \item<+-> Restore from backup
+        \end{itemize}
+	}
+
+    \frame{\frametitle{Port knocking}
+        \begin{itemize}
+            \item<+-> Using the Netfilter API in the kernel (also used by \texttt{iptables})
+            \item<+-> Very easy to use, just register a hook using provided functions and structures
+            \item<+-> \textbf{Important:} Manually send \emph{RST} for TCP and \emph{ICMP Port Unreachable} for UDP
+            \item<+-> Connecting to specified ports only possible after "pinging" the following ports first (within two seconds): \texttt{12345}, \texttt{666}, \texttt{23}, \texttt{1337}, \texttt{42}
+            \item<+-> Host may now connect two all ports with enable port knocking (until another host completes the knocking sequence)
+        \end{itemize}
+	}
+	
+	
+\section{S.A.S.U.K.E. - rootkit detection}
+	\frame{\frametitle{Overview}
+		\tableofcontents[currentsection]
+	}
+  \subsection{Approaches}
+    \frame{\frametitle{LKM}
+		\begin{itemize}
+			\item<+-> Check the system call table
+			\item<+-> Check the first 16 Bytes of function instructions
+			\item<+-> Loop all processes (using the \texttt{struct task *} list)
+			\item<+-> List contents of the \texttt{module} list, the \texttt{kobject} list, and the \texttt{kernfs} tree
+			\item<+-> List all Netfilter hooks
+		\end{itemize}
+	}
+
+    \frame{\frametitle{User-mode}
+		\begin{itemize}
+			\item<+-> Shell script that uses \texttt{kill -0} on every possible PID (filters for good processes with existing \texttt{proc} entries)
+			\item<+-> Call a C program to hook to every TCP socket.
+		\end{itemize}
+	}
+
+
+    \subsection{Group 1}
+    \frame{\frametitle{}
+        \begin{itemize}
+            \item<+-> We were not able to compile our tools on the system
+        \end{itemize}
+	}
+    \subsection{Group 2: chytryroot}
+    \frame{\frametitle{chytryroot}
+		\begin{itemize}
+			\item<+-> Broken \texttt{ip} command, extremely slow \texttt{scp}
+			\item<+-> \texttt{sshd} on port 5167 (PID 2842)
+			\item<+-> Manipulated syscall pointer to \texttt{read} and \texttt{recvmsg}
+			\item<+-> Manipulated instructions in all three functions of the \texttt{packet\_rcv} family
+			\item<+-> Found the name of the rootkit in the \texttt{kernfs}
+		\end{itemize}
+	}
+    \subsection{Group 3: rootkit}
+    \frame{\frametitle{rootkit}
+		\begin{itemize}
+			\item<+-> Could not compile while rootkit is inserted
+			\item<+-> Extreme memory issues (could not run user-mode script)
+			\item<+-> Hidden \texttt{sshd} on port 22 (PID 2446)
+			\item<+-> No manipulation of the system call table
+			\item<+-> Manipulated instructions in all three functions of the \texttt{packet\_rcv} family
+			\item<+-> Netfilter hook for port knocking
+		\end{itemize}
+	}
+    \subsection{Group 5}
+    \frame{\frametitle{}
+		\begin{itemize}
+			\item<+-> Random kernel panics, reboot/shutdown not working
+			\item<+-> Two hidden processes: \texttt{nc} on port 4321 and \texttt{bash} (PIDs 2515, 2529)
+			\item<+-> No manipulation of the system call table
+			\item<+-> Manipulated instructions in \texttt{read}, \texttt{recvmsg}, \texttt{packet\_rcv\_spkt}, and \texttt{tpacket\_rcv}
+		\end{itemize}
+	}
+    \subsection{Group 6}
+    \frame{\frametitle{}
+		\begin{itemize}
+			\item<+-> Hidden \texttt{sshd} on port 7865 (PID 2834)
+			\item<+-> Manipulated syscall pointer to \texttt{read}, \texttt{getdents}, and \texttt{recvmsg}
+			\item<+-> Manipulated instructions in \texttt{tpacket\_rcv}
+		\end{itemize}
+	}
+    \subsection{Group 7: Marvin}
+    \frame{\frametitle{Marvin}
+		\begin{itemize}
+			\item<+-> Could not run user-mode script (multiple errors while using pipes)
+			\item<+-> Hidden \texttt{nc} (PID 2799)
+			\item<+-> Manipulated syscall pointer to \texttt{read}, \texttt{getdents}, and \texttt{open}
+			\item<+-> Manipulated instructions in \texttt{packet\_rcv}
+			\item<+-> Found the name of the rootkit in the list of \texttt{kobjecs}
+			\item<+-> Netfilter hook for port knocking
+		\end{itemize}
+	}
+\section{Other Detection methods}
+    \subsection{External Analysis}
+    \frame{\frametitle{External Analysis}
+		\begin{itemize}
+       		     \item<+-> Looking at the .vdi file
+       		     \item<+-> Looking at the memory
+       		     \item<+-> Looking at traffic from and to the VM
+		\end{itemize}
+	}
+\section{Conclusion}
+	\frame{\frametitle{Conclusion}
+		\begin{itemize}
+            		\item<+-> Fun experience (both writing and detecting rootkits)
+            		\item<+-> Important lesson: never use copy\&paste!
+		\end{itemize}
+	}
+	
+    \frame{\frametitle{Discussion and comments}
+        \centering
+        Thank you for your attention!\\
+	}
+
+\end{document}

@@ -245,12 +245,10 @@ This field contains a copy of the \texttt{struct module} which uniquely identifi
 Using this we would be able to insert a hidden module back into the appropriate kernel data structures and unload it cleanly using the \texttt{rmmod} command.
 
 \subsubsection{Hidden LKM detection}
-%TODO
-Detection of the hidden LKM depends how safely it's hidden from the kernel data structures. 
-Inorder to hide from the \texttt{/sys/modules} one can delete \texttt{kobj}, remove from the \texttt{kern\_fs} or just hide the file. 
-If one just hides the file, we can just get the rootkit from both \texttt{kern\_fs} and \texttt{kobj}. 
-If one just deletes the \texttt{kern\_fs}, we can still access the hidden module from the \texttt{kobj} tree and check 
-against the modules in the \texttt{/sys/modules}. By this way we can detect the hidden modules. 
+Detection of the hidden LKM depends how well it's hidden from the kernel data structures. 
+In order to hide it from \texttt{/sys/module/} one can remove it from the list of  \texttt{struct module *} and the list of \texttt{struct kobject *}, remove it from the \texttt{kern\_fs} tree or just hide the file. 
+If one just hides the file, we can simply get the rootkit from both the \texttt{kern\_fs} as well as the list of \texttt{struct kobject *}. 
+If one just deletes the \texttt{kern\_fs}, we can still find the hidden module in the list of \texttt{struct kobject *}. 
 
 
 \subsection{Detection from user-space}\label{sec:script}
@@ -338,7 +336,7 @@ This script, of course, takes some time to terminate, as it has to check every p
 We ran our detection tools on the virtual machine of each group.
 We also ran it on our own group to be able to compare it to the other rootkits.
 \subsection{Group 1}
-Would not compile.
+We were not able to compile our code at all on this groups virtual machine. No tests were run.
 
 \subsection{Group 2}
 The machine of group two was demonstrating some weird behavior (e.g. \texttt{ip} command not working) which immediately indicated tampering.
@@ -353,16 +351,20 @@ After looking through the \emph{kernfs} we were able to find an entry which stoo
 We determined that while they removed their rootkit from the list of modules, they neglected to remove it from the \emph{kernfs}, too.
 
 \subsection{Group 3}
-
-
-
+The machine of group three was also demonstrating some weird behavior (memory issues).
+Due to this we were not able to run our user-mode tool on their updated version.
+On their initial version, however, we were able to run it and determined that they are hiding a \texttt{sshd} process with PID \texttt{2446} which is listening on port \texttt{22}.
+After further analysis using our LKM, further evidence of a rootkit were detected.
+The first few instructions of \texttt{packet\_rcv}, \texttt{packet\_rcv\_spkt}, and \texttt{tpacket\_rcv} functions were manipulated.
+We were not able to detect any hooked system calls, however.
+We also found a Netfilter hook used for port knocking.
 
 \subsection{Group 4}
 We were able to detect our own rootkit using our tools.
 The user-mode script showed the hidden \texttt{dropbear} process (PID \texttt{3187}) which is listening on TCP port \texttt{9999}.
 Using the LKM we were able to detect three manipulated pointers in the system call table. The manipulated system calls where \texttt{read}, \texttt{getdents}, and \texttt{recvmsg}. We furthermore found another three functions which had manipulated instructions: \texttt{packet\_rcv}, \texttt{packet\_rcv\_spkt}, and \texttt{tpacket\_rcv}.
 We found one netfilter hook for IPv4 packets destined for or originating from the virtual machine.
-We were not able to directly uncover a hidden module.
+We found the name of the hidden module (\texttt{narooto}) inside the list of \texttt{kobjects}.
 
 \subsection{Group 5}
 This groups virtual machine was also behaving weirdly.
@@ -383,6 +385,12 @@ Furthermore, the first few instructions of the \texttt{tpacket\_rcv} functions a
 Port knocking didn't seem to be enabled, there were no netfilter hooks and we could simply connect to the hidden \texttt{sshd}.
 
 \subsection{Group 7}
+We were not able to run our user-mode script on this virtual machine as pipes are broken.
+Using our LKM we determined that the pointers to the system calls \texttt{read}, \texttt{getdents}, and \texttt{open} are manipulated.
+Furthermore, the first few instructions of the \texttt{packet\_rcv} functions are manipulated, too.
+They have a hidden \texttt{nc} process (PID \texttt{2834}) providing them a remote shell.
+Port knocking is enabled using a Netfilter hook.
+We found the name of the hidden module (\texttt{marvin}) inside the list of \texttt{kobjects}.
 
 \subsection{Comparison of the different rootkits}
 The following table gives an overview over which groups' rootkit we were able to detect in which way using our kernel module.
@@ -394,11 +402,11 @@ It is not listing which rootkits were found using the user-space shell script as
                 & SysCall Pointer & SysCall Instructions & PID hidden from \emph{/proc} & NF hook & Hidden modules\\ \hline
                    Group 1 &  &  &  &  & \\ \hline  
                    Group 2 & \checkmark & \checkmark & \checkmark & \xmark & \checkmark \\ \hline  
-                   Group 3 & \xmark & \checkmark & ? & \checkmark & \xmark \\ \hline  
-                   Group 4 & \checkmark & \checkmark & \checkmark & \checkmark & \xmark \\ \hline  
+                   Group 3 & \xmark & \checkmark & \checkmark & \checkmark & \xmark \\ \hline  
+                   Group 4 & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\ \hline  
                    Group 5 & \xmark & \checkmark & \checkmark & \checkmark & \xmark \\ \hline  
                    Group 6 & \checkmark & \checkmark & \checkmark & \xmark & \xmark \\ \hline  
-                   Group 7 & \checkmark & \checkmark & ? & \checkmark & \xmark \\
+                   Group 7 & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
             \end{tabular}
 \end{center}
 
@@ -407,5 +415,6 @@ As seen during the analysis section of this paper, we were easily able to detect
 
 Our LKM relies on a valid \emph{System.map} file which has not been tempered, for example. If this would not be present, we either could not have used some features of our module or would have to find another way to obtain the correct kernel symbols.
 
+Concluding it can be said that we were pretty disappointed with already existing rootkit detection software for linux. After talking with group 7 about this we believe it would be a worthwhile project to work together and release a better detection suite.
 
 \end{document}

@@ -1,0 +1,66 @@
+\beamer@endinputifotherversion {3.33pt}
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\slideentry {0}{0}{2}{2/2}{}{0}}
+\headcommand {\beamer@framepages {2}{2}}
+\headcommand {\sectionentry {1}{naROOTo}{3}{naROOTo}{0}}
+\headcommand {\beamer@sectionpages {1}{2}}
+\headcommand {\beamer@subsectionpages {1}{2}}
+\headcommand {\slideentry {1}{0}{3}{3/3}{}{0}}
+\headcommand {\beamer@framepages {3}{3}}
+\headcommand {\slideentry {1}{0}{4}{4/7}{}{0}}
+\headcommand {\beamer@framepages {4}{7}}
+\headcommand {\slideentry {1}{0}{5}{8/10}{}{0}}
+\headcommand {\beamer@framepages {8}{10}}
+\headcommand {\slideentry {1}{0}{6}{11/13}{}{0}}
+\headcommand {\beamer@framepages {11}{13}}
+\headcommand {\slideentry {1}{0}{7}{14/17}{}{0}}
+\headcommand {\beamer@framepages {14}{17}}
+\headcommand {\slideentry {1}{0}{8}{18/22}{}{0}}
+\headcommand {\beamer@framepages {18}{22}}
+\headcommand {\sectionentry {2}{S.A.S.U.K.E. - rootkit detection}{23}{S.A.S.U.K.E. - rootkit detection}{0}}
+\headcommand {\beamer@sectionpages {3}{22}}
+\headcommand {\beamer@subsectionpages {3}{22}}
+\headcommand {\slideentry {2}{0}{9}{23/23}{}{0}}
+\headcommand {\beamer@framepages {23}{23}}
+\headcommand {\beamer@subsectionentry {0}{2}{1}{24}{Approaches}}\headcommand {\beamer@subsectionpages {23}{23}}
+\headcommand {\slideentry {2}{1}{1}{24/28}{Approaches}{0}}
+\headcommand {\beamer@framepages {24}{28}}
+\headcommand {\slideentry {2}{1}{2}{29/30}{Approaches}{0}}
+\headcommand {\beamer@framepages {29}{30}}
+\headcommand {\beamer@subsectionentry {0}{2}{2}{31}{Group 1}}\headcommand {\beamer@subsectionpages {24}{30}}
+\headcommand {\slideentry {2}{2}{1}{31/31}{Group 1}{0}}
+\headcommand {\beamer@framepages {31}{31}}
+\headcommand {\beamer@subsectionentry {0}{2}{3}{32}{Group 2: chytryroot}}\headcommand {\beamer@subsectionpages {31}{31}}
+\headcommand {\slideentry {2}{3}{1}{32/36}{Group 2: chytryroot}{0}}
+\headcommand {\beamer@framepages {32}{36}}
+\headcommand {\beamer@subsectionentry {0}{2}{4}{37}{Group 3: rootkit}}\headcommand {\beamer@subsectionpages {32}{36}}
+\headcommand {\slideentry {2}{4}{1}{37/42}{Group 3: rootkit}{0}}
+\headcommand {\beamer@framepages {37}{42}}
+\headcommand {\beamer@subsectionentry {0}{2}{5}{43}{Group 5}}\headcommand {\beamer@subsectionpages {37}{42}}
+\headcommand {\slideentry {2}{5}{1}{43/46}{Group 5}{0}}
+\headcommand {\beamer@framepages {43}{46}}
+\headcommand {\beamer@subsectionentry {0}{2}{6}{47}{Group 6}}\headcommand {\beamer@subsectionpages {43}{46}}
+\headcommand {\slideentry {2}{6}{1}{47/49}{Group 6}{0}}
+\headcommand {\beamer@framepages {47}{49}}
+\headcommand {\beamer@subsectionentry {0}{2}{7}{50}{Group 7: Marvin}}\headcommand {\beamer@subsectionpages {47}{49}}
+\headcommand {\slideentry {2}{7}{1}{50/55}{Group 7: Marvin}{0}}
+\headcommand {\beamer@framepages {50}{55}}
+\headcommand {\sectionentry {3}{Other Detection methods}{56}{Other Detection methods}{0}}
+\headcommand {\beamer@sectionpages {23}{55}}
+\headcommand {\beamer@subsectionpages {50}{55}}
+\headcommand {\beamer@subsectionentry {0}{3}{1}{56}{External Analysis}}\headcommand {\beamer@subsectionpages {56}{55}}
+\headcommand {\slideentry {3}{1}{1}{56/58}{External Analysis}{0}}
+\headcommand {\beamer@framepages {56}{58}}
+\headcommand {\sectionentry {4}{Conclusion}{59}{Conclusion}{0}}
+\headcommand {\beamer@sectionpages {56}{58}}
+\headcommand {\beamer@subsectionpages {56}{58}}
+\headcommand {\slideentry {4}{0}{2}{59/60}{}{0}}
+\headcommand {\beamer@framepages {59}{60}}
+\headcommand {\slideentry {4}{0}{3}{61/61}{}{0}}
+\headcommand {\beamer@framepages {61}{61}}
+\headcommand {\beamer@partpages {1}{61}}
+\headcommand {\beamer@subsectionpages {59}{61}}
+\headcommand {\beamer@sectionpages {59}{61}}
+\headcommand {\beamer@documentpages {61}}
+\headcommand {\def \inserttotalframenumber {20}}
