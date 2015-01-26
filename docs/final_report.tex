@@ -19,7 +19,7 @@
 
 \geometry{margin=2.5cm}
 
-\title{Sasuke - Rootkit Detector Group 4}
+\title{S.A.S.U.K.E. - Rootkit Detector Group 4}
 \subtitle{TUM \\Chair of IT Security\\  Rootkit Programming WS2014/15}
 \author{Martin Herrman \and Gurusiddesha Chandrasekhara}
 \date{\today}
@@ -30,6 +30,7 @@
 \newpage
 
 \section{Introduction}
+S.A.S.U.K.E. stands for Search And Subvert User-manipulated Kernel Exploits.
 To detect the rootkits of the other groups we used two different approaches: detection from kernel-space and detection from user-space.
 The reason for implenting two different methods was that while detection from within the kernel is much easier than from user-space, not everyone will be able to write, use, or understand LKMs.
 This way we can also see which rootkits hide very good (no easy way of detection from user-space) or not so good (easily detected from user-space). 
@@ -43,7 +44,7 @@ While it is expected to be run with root privileges, it will not try to insert a
 
 Chapter \ref{sec:design} will describe the details of the implementation. Chapter \ref{sec:detection} will give an overview over the different rootkits and describe which tests the failed and which they passed.
 
-\section{Design of Sasuke}\label{sec:design}
+\section{Design of S.A.S.U.K.E.}\label{sec:design}
 
 \subsection{Loadable Kernel Module}\label{sec:lkm}
 There are a few requirements for building the Detection LKM: 
