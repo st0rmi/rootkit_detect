@@ -89,9 +89,9 @@ There are 3 manipulated functions.
 [02842] sshd
 [02844] bash
 [02892] kworker/0:0
-[02939] udevd
 [03379] udevd
-[03970] insmod
+[04986] udevd
+[05573] insmod
 Number of processes: 65 (64 if you account for the 'insmod').
 Verify by running the command 'ps ax --no-headers | wc -l'.
 
@@ -247,3 +247,91 @@ libata
 e1000
 scsi_mod
 Number of loaded kernel modules: 57
+
+[Checking loaded kernel modules in kobjects...]
+xz_dec
+tcp_cubic
+kernel
+workqueue
+printk
+spurious
+rcupdate
+rcutree
+pstore
+apparmor
+block
+pcie_aspm
+pci_hotplug
+pciehp
+acpiphp
+intel_idle
+acpi
+sysrq
+keyboard
+vt
+8250_core
+8250
+firmware_class
+i8042
+mousedev
+cpuidle
+netpoll
+ipv6
+dns_resolver
+scsi_mod
+e1000
+libata
+ata_piix
+libahci
+ahci
+ata_generic
+cdrom
+sr_mod
+crct10dif_common
+crc_t10dif
+sd_mod
+sg
+mbcache
+jbd2
+crc16
+ext4
+button
+evdev
+ac97_bus
+soundcore
+i2c_core
+usb_common
+serio_raw
+psmouse
+microcode
+ac
+battery
+snd
+i2c_piix4
+pcspkr
+snd_timer
+snd_pcm
+snd_ac97_codec
+snd_intel8x0
+usbcore
+parport
+parport_pc
+ehci_hcd
+ohci_hcd
+ohci_pci
+hid
+usbhid
+hid_generic
+joydev
+loop
+sunrpc
+fscache
+lockd
+nfs
+nfs_acl
+oid_registry
+auth_rpcgss
+nfsd
+inet_diag
+tcp_diag
+Number of loaded kernel modules: 86

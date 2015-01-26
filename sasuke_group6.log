@@ -92,12 +92,12 @@ There are 1 manipulated functions.
 [02675] kworker/0:1
 [02815] kworker/1:2
 [02834] sshd
-[02849] kworker/0:2
-[02858] udevd
 [03845] udevd
-[03873] sudo
-[03874] bash
-[06518] insmod
+[06556] kworker/0:0
+[06560] udevd
+[06561] sudo
+[06562] bash
+[07178] insmod
 Number of processes: 71 (70 if you account for the 'insmod').
 Verify by running the command 'ps ax --no-headers | wc -l'.
 
@@ -107,6 +107,7 @@ Number of current netfilter hooks: 0.
 [Checking loaded kernel modules in /sys/modules...]
 /module/sg
 /module/ac
+/module/tcp_diag
 /module/fat
 /module/nfs
 /module/hid
@@ -124,12 +125,12 @@ Number of current netfilter hooks: 0.
 /module/serio_raw
 /module/cpuidle
 /module/nfsd
-/module/ahci
 /module/usb_common
 /module/crct10dif_common
 /module/e1000
 /module/dns_resolver
 /module/rcutree
+/module/ahci
 /module/cdrom
 /module/crc16
 /module/evdev
@@ -185,6 +186,7 @@ Number of current netfilter hooks: 0.
 /module/microcode
 /module/ata_piix
 /module/pcie_aspm
+/module/inet_diag
 /module/intel_idle
 /module/thermal_sys
 /module/psmouse
@@ -193,10 +195,12 @@ Number of current netfilter hooks: 0.
 /module/rcupdate
 /module/xz_dec
 /module/kernel
-Number of loaded kernel modules in /sys/modules: 88
+Number of loaded kernel modules in /sys/modules: 90
 
 [Checking loaded kernel modules in lsmod...]
 sasuke
+tcp_diag
+inet_diag
 nls_utf8
 nls_cp437
 vfat
@@ -255,4 +259,96 @@ ahci
 libahci
 libata
 scsi_mod
-Number of loaded kernel modules: 59
+Number of loaded kernel modules: 61
+
+[Checking loaded kernel modules in kobjects...]
+xz_dec
+tcp_cubic
+kernel
+workqueue
+printk
+spurious
+rcupdate
+rcutree
+pstore
+apparmor
+block
+pcie_aspm
+pci_hotplug
+pciehp
+acpiphp
+intel_idle
+acpi
+sysrq
+keyboard
+vt
+8250_core
+8250
+firmware_class
+i8042
+mousedev
+cpuidle
+netpoll
+ipv6
+dns_resolver
+scsi_mod
+libata
+libahci
+ahci
+crct10dif_common
+crc_t10dif
+sd_mod
+jbd2
+mbcache
+crc16
+ext4
+button
+ac
+battery
+microcode
+thermal_sys
+processor
+e1000
+parport
+parport_pc
+evdev
+usb_common
+ata_piix
+i2c_core
+i2c_piix4
+pcspkr
+serio_raw
+psmouse
+soundcore
+snd
+ata_generic
+cdrom
+sr_mod
+snd_timer
+snd_pcm
+usbcore
+ehci_hcd
+ohci_hcd
+ohci_pci
+sg
+hid
+usbhid
+hid_generic
+joydev
+loop
+sunrpc
+fscache
+lockd
+nfs
+nfs_acl
+oid_registry
+auth_rpcgss
+nfsd
+usb_storage
+fat
+vfat
+nls_cp437
+nls_utf8
+inet_diag
+tcp_diag
+Number of loaded kernel modules: 90
