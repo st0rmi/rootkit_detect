@@ -12,25 +12,26 @@ kill       - OK
 There are 0 manipulated pointers in the system call table.
 
 [Checking the first bytes of some system calls and other important functions...]
-read            - OK
+read            - B835B848 FFFFA02D E0FFFFFF 61E80824
 getdents        - OK
 getdents64      - OK
-recvmsg         - OK
+recvmsg         - C41EB848 FFFFA02D E0FFFFFF FFFFFFEA
 open            - OK
 close           - OK
 readlink        - OK
 readlinkat      - OK
 kill            - OK
-packet_rcv      - 34431A68 2444C7A0 FFFFFF04 EC83C3FF
-packet_rcv_spkt - 3443DA68 2444C7A0 FFFFFF04 8B4CC3FF
-tpacket_rcv     - 34437468 2444C7A0 FFFFFF04 EC83C3FF
-There are 3 manipulated functions.
+packet_rcv      - OK
+packet_rcv_spkt - BD0FB848 FFFFA02D E0FFFFFF 8B4C7D47
+tpacket_rcv     - BC5CB848 FFFFA02D E0FFFFFF EC8348FB
+There are 4 manipulated functions.
 
 [Checking currently running processes...]
 [00001] init
 [00002] kthreadd
 [00003] ksoftirqd/0
 [00005] kworker/0:0H
+[00006] kworker/u2:0
 [00007] rcu_sched
 [00008] rcu_bh
 [00009] migration/0
@@ -49,55 +50,51 @@ There are 3 manipulated functions.
 [00023] fsnotify_mark
 [00028] ipv6_addrconf
 [00029] deferwq
-[00098] ata_sff
-[00116] scsi_eh_0
-[00117] scsi_tmf_0
-[00118] scsi_eh_1
-[00119] scsi_tmf_1
-[00120] scsi_eh_2
-[00121] kworker/u2:2
-[00122] scsi_tmf_2
-[00124] scsi_eh_3
-[00125] scsi_tmf_3
-[00134] kworker/0:2
-[00142] kworker/0:1H
-[00158] jbd2/sda1-8
-[00159] ext4-rsv-conver
-[00302] udevd
-[00433] kpsmoused
-[00446] khubd
-[01610] rpcbind
-[01641] rpc.statd
-[01646] rpciod
-[01648] nfsiod
-[01655] rpc.idmapd
-[01990] dhclient
-[02011] rsyslogd
-[02047] acpid
-[02074] atd
-[02115] cron
-[02130] dbus-daemon
-[02427] exim4
-[02446] sshd
-[02473] getty
-[02474] getty
-[02475] getty
-[02476] getty
-[02477] getty
-[02774] kworker/u2:0
-[03096] kworker/0:1
-[03180] udevd
-[03181] kworker/0:0
-[03200] login
-[03201] zsh
-[03225] udevd
-[03250] insmod
-Number of processes: 65 (64 if you account for the 'insmod').
+[00138] ata_sff
+[00163] scsi_eh_0
+[00164] scsi_tmf_0
+[00165] scsi_eh_1
+[00166] kworker/u2:2
+[00167] scsi_tmf_1
+[00168] scsi_eh_2
+[00169] scsi_tmf_2
+[00178] kworker/0:2
+[00182] kworker/0:1H
+[00204] jbd2/sda1-8
+[00205] ext4-rsv-conver
+[00348] udevd
+[00504] kpsmoused
+[00508] khubd
+[01655] rpcbind
+[01686] rpc.statd
+[01691] rpciod
+[01698] nfsiod
+[01717] rpc.idmapd
+[01747] dhclient
+[02030] rsyslogd
+[02067] acpid
+[02092] atd
+[02141] cron
+[02410] sshd
+[02437] exim4
+[02464] login
+[02465] getty
+[02466] getty
+[02467] getty
+[02468] getty
+[02469] getty
+[02470] bash
+[02515] bash
+[02529] nc
+[02648] kworker/0:1
+[02670] udevd
+[02671] udevd
+[03255] insmod
+Number of processes: 63 (62 if you account for the 'insmod').
 Verify by running the command 'ps ax --no-headers | wc -l'.
 
 [Checking netfilter hooks...]
-[(null)] 0xFFFFFFFFA0345060
-Number of current netfilter hooks: 1.
+Number of current netfilter hooks: 0.
 
 [Checking loaded kernel modules in /sys/modules...]
 /module/ac
@@ -121,7 +118,6 @@ Number of current netfilter hooks: 1.
 /module/ahci
 /module/usb_common
 /module/crct10dif_common
-/module/nfnetlink
 /module/e1000
 /module/dns_resolver
 /module/cdrom
@@ -130,8 +126,6 @@ Number of current netfilter hooks: 1.
 /module/lockd
 /module/evdev
 /module/crc16
-/module/block
-/module/rcutree
 /module/snd_ac97_codec
 /module/i2c_piix4
 /module/snd_intel8x0
@@ -139,13 +133,15 @@ Number of current netfilter hooks: 1.
 /module/libahci
 /module/mbcache
 /module/firmware_class
+/module/sysrq
+/module/block
+/module/rcutree
 /module/snd_pcm
 /module/spurious
 /module/scsi_mod
 /module/button
-/module/nfnetlink_log
-/module/ohci_pci
 /module/ohci_hcd
+/module/ohci_pci
 /module/apparmor
 /module/fscache
 /module/netpoll
@@ -154,7 +150,6 @@ Number of current netfilter hooks: 1.
 /module/soundcore
 /module/ata_generic
 /module/ehci_hcd
-/module/workqueue
 /module/mousedev
 /module/hid_generic
 /module/libata
@@ -167,11 +162,12 @@ Number of current netfilter hooks: 1.
 /module/sunrpc
 /module/oid_registry
 /module/sd_mod
+/module/usbhid
 /module/usbcore
 /module/battery
 /module/8250_core
 /module/crc_t10dif
-/module/usbhid
+/module/processor
 /module/printk
 /module/parport
 /module/ac97_bus
@@ -181,21 +177,20 @@ Number of current netfilter hooks: 1.
 /module/pcie_aspm
 /module/inet_diag
 /module/intel_idle
+/module/thermal_sys
 /module/psmouse
 /module/pci_hotplug
 /module/keyboard
 /module/rcupdate
 /module/xz_dec
 /module/kernel
-/module/sysrq
+/module/workqueue
 Number of loaded kernel modules in /sys/modules: 88
 
 [Checking loaded kernel modules in lsmod...]
 sasuke
 tcp_diag
 inet_diag
-nfnetlink_log
-nfnetlink
 nfsd
 auth_rpcgss
 oid_registry
@@ -218,21 +213,23 @@ ohci_hcd
 ehci_hcd
 usbcore
 snd
+processor
+thermal_sys
+psmouse
+i2c_piix4
+i2c_core
 parport_pc
 parport
-usb_common
 evdev
-microcode
-psmouse
-serio_raw
+usb_common
 pcspkr
-i2c_piix4
+serio_raw
+microcode
+button
 soundcore
-i2c_core
 ac97_bus
 battery
 ac
-button
 ext4
 crc16
 jbd2
@@ -241,13 +238,103 @@ sg
 sd_mod
 sr_mod
 crc_t10dif
-cdrom
 crct10dif_common
+cdrom
 ata_generic
+ata_piix
 ahci
 libahci
-ata_piix
+e1000
 libata
 scsi_mod
-e1000
 Number of loaded kernel modules: 59
+
+[Checking loaded kernel modules in kobjects...]
+xz_dec
+tcp_cubic
+kernel
+workqueue
+printk
+spurious
+rcupdate
+rcutree
+pstore
+apparmor
+block
+pcie_aspm
+pci_hotplug
+pciehp
+acpiphp
+intel_idle
+acpi
+sysrq
+keyboard
+vt
+8250_core
+8250
+firmware_class
+i8042
+mousedev
+cpuidle
+netpoll
+ipv6
+dns_resolver
+scsi_mod
+libata
+e1000
+libahci
+ahci
+ata_piix
+ata_generic
+cdrom
+crct10dif_common
+crc_t10dif
+sr_mod
+sd_mod
+sg
+mbcache
+jbd2
+crc16
+ext4
+ac
+battery
+ac97_bus
+soundcore
+button
+microcode
+serio_raw
+pcspkr
+usb_common
+evdev
+parport
+parport_pc
+i2c_core
+i2c_piix4
+psmouse
+thermal_sys
+processor
+snd
+usbcore
+ehci_hcd
+ohci_hcd
+ohci_pci
+snd_timer
+snd_pcm
+snd_ac97_codec
+snd_intel8x0
+hid
+usbhid
+hid_generic
+joydev
+loop
+sunrpc
+fscache
+lockd
+nfs
+nfs_acl
+oid_registry
+auth_rpcgss
+nfsd
+inet_diag
+tcp_diag
+Number of loaded kernel modules: 88
