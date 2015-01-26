@@ -7,7 +7,7 @@
 \beamer@subsectionintoc {2}{3}{Group 2: chytryroot}{32}{0}{2}
 \beamer@subsectionintoc {2}{4}{Group 3: rootkit}{37}{0}{2}
 \beamer@subsectionintoc {2}{5}{Group 5}{43}{0}{2}
-\beamer@subsectionintoc {2}{6}{Group 6}{47}{0}{2}
+\beamer@subsectionintoc {2}{6}{Group 6: g6\_rkit\_comcon}{47}{0}{2}
 \beamer@subsectionintoc {2}{7}{Group 7: Marvin}{50}{0}{2}
 \beamer@sectionintoc {3}{Other Detection methods}{56}{0}{3}
 \beamer@subsectionintoc {3}{1}{External Analysis}{56}{0}{3}
