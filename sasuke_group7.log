@@ -91,16 +91,96 @@ There are 1 manipulated functions.
 [02486] bash
 [02799] nc
 [02818] kworker/0:1
-[02864] kworker/0:2
-[02869] insmod
-Number of processes: 66 (65 if you account for the 'insmod').
+[02873] insmod
+Number of processes: 65 (64 if you account for the 'insmod').
 Verify by running the command 'ps ax --no-headers | wc -l'.
 
 [Checking netfilter hooks...]
 [(null)] 0xFFFFFFFFA02E947F
 Number of current netfilter hooks: 1.
 
-[Checking loaded kernel modules...]
+[Checking loaded kernel modules in /sys/modules...]
+/module/ac
+/module/sg
+/module/nfs
+/module/8250
+/module/snd
+/module/vt
+/module/acpi
+/module/tcp_cubic
+/module/ext4
+/module/jbd2
+/module/loop
+/module/i2c_core
+/module/nfsd
+/module/serio_raw
+/module/cpuidle
+/module/ipv6
+/module/ahci
+/module/crct10dif_common
+/module/e1000
+/module/dns_resolver
+/module/cdrom
+/module/block
+/module/i8042
+/module/auth_rpcgss
+/module/lockd
+/module/evdev
+/module/snd_ac97_codec
+/module/i2c_piix4
+/module/sysrq
+/module/snd_intel8x0
+/module/snd_timer
+/module/mbcache
+/module/firmware_class
+/module/libahci
+/module/crc16
+/module/rcutree
+/module/snd_pcm
+/module/spurious
+/module/scsi_mod
+/module/button
+/module/fscache
+/module/netpoll
+/module/nfs_acl
+/module/soundcore
+/module/ata_generic
+/module/apparmor
+/module/mousedev
+/module/marvin
+/module/libata
+/module/pcspkr
+/module/pciehp
+/module/acpiphp
+/module/kernel
+/module/sasuke
+/module/pstore
+/module/oid_registry
+/module/sr_mod
+/module/sd_mod
+/module/processor
+/module/battery
+/module/8250_core
+/module/crc_t10dif
+/module/sunrpc
+/module/ac97_bus
+/module/parport
+/module/parport_pc
+/module/microcode
+/module/ata_piix
+/module/pcie_aspm
+/module/intel_idle
+/module/thermal_sys
+/module/psmouse
+/module/pci_hotplug
+/module/keyboard
+/module/rcupdate
+/module/xz_dec
+/module/printk
+/module/workqueue
+Number of loaded kernel modules in /sys/modules: 78
+
+[Checking loaded kernel modules in lsmod...]
 sasuke
 nfsd
 auth_rpcgss
@@ -150,3 +230,83 @@ e1000
 libata
 scsi_mod
 Number of loaded kernel modules: 48
+
+[Checking loaded kernel modules in kobjects...]
+xz_dec
+tcp_cubic
+kernel
+workqueue
+printk
+spurious
+rcupdate
+rcutree
+pstore
+apparmor
+block
+pcie_aspm
+pci_hotplug
+pciehp
+acpiphp
+intel_idle
+acpi
+sysrq
+keyboard
+vt
+8250_core
+8250
+firmware_class
+i8042
+mousedev
+cpuidle
+netpoll
+ipv6
+dns_resolver
+scsi_mod
+e1000
+libata
+ata_piix
+libahci
+ahci
+ata_generic
+crct10dif_common
+crc_t10dif
+cdrom
+sr_mod
+sd_mod
+sg
+mbcache
+jbd2
+crc16
+ext4
+thermal_sys
+button
+ac
+battery
+evdev
+parport
+serio_raw
+pcspkr
+microcode
+processor
+i2c_core
+psmouse
+parport_pc
+ac97_bus
+i2c_piix4
+soundcore
+snd
+snd_timer
+snd_pcm
+snd_ac97_codec
+snd_intel8x0
+loop
+sunrpc
+fscache
+lockd
+nfs
+nfs_acl
+oid_registry
+auth_rpcgss
+nfsd
+marvin
+Number of loaded kernel modules: 78
