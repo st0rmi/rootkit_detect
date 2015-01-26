@@ -1,0 +1,383 @@
+
+[Checking the pointers in the system call table...]
+read       - OK
+getdents   - OK
+getdents64 - OK
+recvmsg    - OK
+open       - OK
+close      - OK
+readlink   - OK
+readlinkat - OK
+kill       - OK
+There are 0 manipulated pointers in the system call table.
+
+[Checking the first bytes of some system calls and other important functions...]
+read            - OK
+getdents        - OK
+getdents64      - OK
+recvmsg         - OK
+open            - OK
+close           - OK
+readlink        - OK
+readlinkat      - OK
+kill            - OK
+packet_rcv      - OK
+packet_rcv_spkt - OK
+tpacket_rcv     - OK
+There are 0 manipulated functions.
+
+[Checking currently running processes...]
+[00001] init
+[00002] kthreadd
+[00003] ksoftirqd/0
+[00005] kworker/0:0H
+[00006] kworker/u2:0
+[00007] rcu_sched
+[00008] rcu_bh
+[00009] migration/0
+[00010] watchdog/0
+[00011] khelper
+[00012] kdevtmpfs
+[00013] netns
+[00014] khungtaskd
+[00015] writeback
+[00016] ksmd
+[00017] crypto
+[00018] kintegrityd
+[00019] bioset
+[00020] kblockd
+[00021] kworker/0:1
+[00022] kswapd0
+[00023] fsnotify_mark
+[00028] ipv6_addrconf
+[00029] deferwq
+[00089] ata_sff
+[00138] scsi_eh_0
+[00139] scsi_tmf_0
+[00140] kworker/u2:2
+[00141] scsi_eh_1
+[00142] scsi_tmf_1
+[00143] scsi_eh_2
+[00144] scsi_tmf_2
+[00153] kworker/0:2
+[00161] kworker/0:1H
+[00179] jbd2/sda1-8
+[00180] ext4-rsv-conver
+[00324] udevd
+[00457] udevd
+[00469] kpsmoused
+[00486] khubd
+[01700] rpcbind
+[01731] rpc.statd
+[01738] rpciod
+[01740] nfsiod
+[01747] rpc.idmapd
+[02013] rsyslogd
+[02119] acpid
+[02147] dbus-daemon
+[02169] atd
+[02224] avahi-daemon
+[02225] avahi-daemon
+[02249] bluetoothd
+[02259] krfcommd
+[02279] NetworkManager
+[02298] polkitd
+[02307] modem-manager
+[02320] gdm3
+[02338] gdm-simple-slav
+[02340] Xorg
+[02389] cron
+[02662] exim4
+[02755] dbus-daemon
+[02759] gdm-session-wor
+[02763] accounts-daemon
+[02767] console-kit-dae
+[02838] minissdpd
+[02846] login
+[02847] getty
+[02848] getty
+[02849] getty
+[02850] getty
+[02851] getty
+[02865] gnome-session
+[02880] gnome-settings-
+[02892] upowerd
+[02927] gvfsd
+[02966] at-spi-bus-laun
+[02977] dbus-daemon
+[02986] at-spi2-registr
+[03009] pulseaudio
+[03013] rtkit-daemon
+[03077] metacity
+[03080] gdm-simple-gree
+[03081] polkit-gnome-au
+[03089] gdm-session-wor
+[03102] bash
+[06495] kworker/0:0
+[06502] udevd
+[06516] dhclient
+[06588] sshd
+[06609] insmod
+Number of processes: 91 (90 if you account for the 'insmod').
+Verify by running the command 'ps ax --no-headers | wc -l'.
+
+[Checking netfilter hooks...]
+Number of current netfilter hooks: 0.
+
+[Checking loaded kernel modules in /sys/modules...]
+/module/ac
+/module/sg
+/module/nfs
+/module/hid
+/module/vt
+/module/8250
+/module/acpi
+/module/tcp_cubic
+/module/snd
+/module/bnep
+/module/jbd2
+/module/ext4
+/module/loop
+/module/i2c_core
+/module/nfsd
+/module/serio_raw
+/module/cpuidle
+/module/ipv6
+/module/ahci
+/module/usb_common
+/module/crct10dif_common
+/module/e1000
+/module/dns_resolver
+/module/cdrom
+/module/i8042
+/module/auth_rpcgss
+/module/lockd
+/module/evdev
+/module/crc16
+/module/binfmt_misc
+/module/i2c_piix4
+/module/snd_ac97_codec
+/module/snd_intel8x0
+/module/snd_timer
+/module/libahci
+/module/mbcache
+/module/firmware_class
+/module/sysrq
+/module/block
+/module/rcutree
+/module/snd_pcm
+/module/spurious
+/module/snd_seq
+/module/scsi_mod
+/module/button
+/module/ohci_hcd
+/module/ohci_pci
+/module/apparmor
+/module/fscache
+/module/netpoll
+/module/nfs_acl
+/module/joydev
+/module/soundcore
+/module/ata_generic
+/module/ehci_hcd
+/module/mousedev
+/module/hid_generic
+/module/libata
+/module/pciehp
+/module/snd_seq_device
+/module/pcspkr
+/module/acpiphp
+/module/pstore
+/module/sasuke
+/module/rfkill
+/module/rfcomm
+/module/sr_mod
+/module/sunrpc
+/module/oid_registry
+/module/sd_mod
+/module/usbhid
+/module/usbcore
+/module/battery
+/module/8250_core
+/module/crc_t10dif
+/module/processor
+/module/printk
+/module/parport
+/module/ac97_bus
+/module/parport_pc
+/module/bluetooth
+/module/microcode
+/module/ata_piix
+/module/pcie_aspm
+/module/intel_idle
+/module/thermal_sys
+/module/psmouse
+/module/pci_hotplug
+/module/keyboard
+/module/rcupdate
+/module/xz_dec
+/module/kernel
+/module/workqueue
+Number of loaded kernel modules in /sys/modules: 93
+
+[Checking loaded kernel modules in lsmod...]
+sasuke
+bnep
+rfcomm
+bluetooth
+rfkill
+binfmt_misc
+nfsd
+auth_rpcgss
+oid_registry
+nfs_acl
+nfs
+lockd
+fscache
+sunrpc
+loop
+joydev
+hid_generic
+usbhid
+hid
+snd_intel8x0
+snd_ac97_codec
+snd_pcm
+snd_seq
+snd_timer
+snd_seq_device
+snd
+processor
+thermal_sys
+ohci_pci
+ohci_hcd
+ehci_hcd
+usbcore
+parport_pc
+parport
+psmouse
+pcspkr
+serio_raw
+i2c_piix4
+evdev
+usb_common
+microcode
+battery
+ac
+i2c_core
+soundcore
+ac97_bus
+button
+ext4
+crc16
+jbd2
+mbcache
+sg
+sd_mod
+sr_mod
+crc_t10dif
+crct10dif_common
+cdrom
+ata_generic
+ata_piix
+ahci
+libahci
+e1000
+libata
+scsi_mod
+Number of loaded kernel modules: 64
+
+[Checking loaded kernel modules in kobjects...]
+xz_dec
+tcp_cubic
+kernel
+workqueue
+printk
+spurious
+rcupdate
+rcutree
+pstore
+apparmor
+block
+pcie_aspm
+pci_hotplug
+pciehp
+acpiphp
+intel_idle
+acpi
+sysrq
+keyboard
+vt
+8250_core
+8250
+firmware_class
+i8042
+mousedev
+cpuidle
+netpoll
+ipv6
+dns_resolver
+scsi_mod
+libata
+e1000
+libahci
+ahci
+ata_piix
+ata_generic
+cdrom
+crct10dif_common
+crc_t10dif
+sr_mod
+sd_mod
+sg
+mbcache
+jbd2
+crc16
+ext4
+button
+ac97_bus
+soundcore
+i2c_core
+ac
+battery
+usb_common
+microcode
+evdev
+i2c_piix4
+serio_raw
+pcspkr
+psmouse
+parport
+parport_pc
+usbcore
+ehci_hcd
+ohci_hcd
+ohci_pci
+thermal_sys
+processor
+snd
+snd_seq_device
+snd_timer
+snd_seq
+snd_pcm
+snd_ac97_codec
+snd_intel8x0
+hid
+usbhid
+hid_generic
+joydev
+loop
+sunrpc
+fscache
+lockd
+nfs
+nfs_acl
+oid_registry
+auth_rpcgss
+nfsd
+binfmt_misc
+rfkill
+bluetooth
+rfcomm
+bnep
+Number of loaded kernel modules: 93

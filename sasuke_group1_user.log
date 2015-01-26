@@ -1,0 +1,131 @@
+[[PROCESS CHECK]]
+[Listing potentially maliciously hidden processes.]
+[Note that most of these are nothing to worry about.]
+0 
+1 init [2]
+2 
+3 
+5 
+6 
+7 
+8 
+9 
+10 
+11 
+13 
+14 
+15 
+16 
+17 
+18 
+19 
+20 
+21 
+22 
+23 
+28 
+29 
+89 
+2024 /usr/sbin/rsyslogd-c5
+2025 /usr/sbin/rsyslogd-c5
+2026 /usr/sbin/rsyslogd-c5
+2295 /usr/sbin/NetworkManager
+2302 /usr/lib/policykit-1/polkitd--no-debug
+2337 /usr/sbin/NetworkManager
+2339 /usr/sbin/gdm3
+2345 /usr/lib/gdm3/gdm-simple-slave--display-id/org/gnome/DisplayManager/Display1
+2761 gdm-session-worker [pam/gdm-welcome]
+2765 /usr/lib/accountsservice/accounts-daemon
+2768 /usr/sbin/console-kit-daemon--no-daemon
+2770 /usr/sbin/console-kit-daemon--no-daemon
+2771 /usr/sbin/console-kit-daemon--no-daemon
+2772 /usr/sbin/console-kit-daemon--no-daemon
+2773 /usr/sbin/console-kit-daemon--no-daemon
+2774 /usr/sbin/console-kit-daemon--no-daemon
+2775 /usr/sbin/console-kit-daemon--no-daemon
+2776 /usr/sbin/console-kit-daemon--no-daemon
+2777 /usr/sbin/console-kit-daemon--no-daemon
+2778 /usr/sbin/console-kit-daemon--no-daemon
+2779 /usr/sbin/console-kit-daemon--no-daemon
+2780 /usr/sbin/console-kit-daemon--no-daemon
+2781 /usr/sbin/console-kit-daemon--no-daemon
+2782 /usr/sbin/console-kit-daemon--no-daemon
+2783 /usr/sbin/console-kit-daemon--no-daemon
+2784 /usr/sbin/console-kit-daemon--no-daemon
+2785 /usr/sbin/console-kit-daemon--no-daemon
+2786 /usr/sbin/console-kit-daemon--no-daemon
+2787 /usr/sbin/console-kit-daemon--no-daemon
+2788 /usr/sbin/console-kit-daemon--no-daemon
+2789 /usr/sbin/console-kit-daemon--no-daemon
+2790 /usr/sbin/console-kit-daemon--no-daemon
+2791 /usr/sbin/console-kit-daemon--no-daemon
+2792 /usr/sbin/console-kit-daemon--no-daemon
+2793 /usr/sbin/console-kit-daemon--no-daemon
+2794 /usr/sbin/console-kit-daemon--no-daemon
+2795 /usr/sbin/console-kit-daemon--no-daemon
+2796 /usr/sbin/console-kit-daemon--no-daemon
+2797 /usr/sbin/console-kit-daemon--no-daemon
+2798 /usr/sbin/console-kit-daemon--no-daemon
+2799 /usr/sbin/console-kit-daemon--no-daemon
+2800 /usr/sbin/console-kit-daemon--no-daemon
+2801 /usr/sbin/console-kit-daemon--no-daemon
+2802 /usr/sbin/console-kit-daemon--no-daemon
+2803 /usr/sbin/console-kit-daemon--no-daemon
+2804 /usr/sbin/console-kit-daemon--no-daemon
+2805 /usr/sbin/console-kit-daemon--no-daemon
+2806 /usr/sbin/console-kit-daemon--no-daemon
+2807 /usr/sbin/console-kit-daemon--no-daemon
+2808 /usr/sbin/console-kit-daemon--no-daemon
+2809 /usr/sbin/console-kit-daemon--no-daemon
+2810 /usr/sbin/console-kit-daemon--no-daemon
+2811 /usr/sbin/console-kit-daemon--no-daemon
+2812 /usr/sbin/console-kit-daemon--no-daemon
+2813 /usr/sbin/console-kit-daemon--no-daemon
+2814 /usr/sbin/console-kit-daemon--no-daemon
+2815 /usr/sbin/console-kit-daemon--no-daemon
+2816 /usr/sbin/console-kit-daemon--no-daemon
+2817 /usr/sbin/console-kit-daemon--no-daemon
+2818 /usr/sbin/console-kit-daemon--no-daemon
+2819 /usr/sbin/console-kit-daemon--no-daemon
+2820 /usr/sbin/console-kit-daemon--no-daemon
+2821 /usr/sbin/console-kit-daemon--no-daemon
+2822 /usr/sbin/console-kit-daemon--no-daemon
+2823 /usr/sbin/console-kit-daemon--no-daemon
+2824 /usr/sbin/console-kit-daemon--no-daemon
+2825 /usr/sbin/console-kit-daemon--no-daemon
+2826 /usr/sbin/console-kit-daemon--no-daemon
+2827 /usr/sbin/console-kit-daemon--no-daemon
+2828 /usr/sbin/console-kit-daemon--no-daemon
+2829 /usr/sbin/console-kit-daemon--no-daemon
+2831 /usr/sbin/console-kit-daemon--no-daemon
+2834 /usr/sbin/console-kit-daemon--no-daemon
+2866 gdm-session-worker [pam/gdm-welcome]
+2878 /usr/bin/gnome-session-f--start/usr/share/gdm/greeter/autostart--debug
+2879 /usr/bin/gnome-session-f--start/usr/share/gdm/greeter/autostart--debug
+2886 /usr/bin/gnome-session-f--start/usr/share/gdm/greeter/autostart--debug
+2889 /usr/lib/gnome-settings-daemon/gnome-settings-daemon
+2890 /usr/lib/gnome-settings-daemon/gnome-settings-daemon
+2893 /usr/lib/upower/upowerd
+2894 /usr/lib/upower/upowerd
+2967 /usr/lib/at-spi2-core/at-spi-bus-launcher
+2969 /usr/lib/at-spi2-core/at-spi-bus-launcher
+2978 /usr/lib/at-spi2-core/at-spi-bus-launcher
+2994 /usr/lib/at-spi2-core/at-spi2-registryd--use-gnome-session
+3018 /usr/lib/rtkit/rtkit-daemon
+3019 /usr/lib/rtkit/rtkit-daemon
+3071 /usr/bin/pulseaudio--start--log-target=syslog
+3072 /usr/bin/pulseaudio--start--log-target=syslog
+3078 metacity
+3079 metacity
+3085 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+3086 /usr/lib/gdm3/gdm-simple-greeter
+3087 /usr/lib/gdm3/gdm-simple-greeter
+3090 gdm-session-worker [pam/gdm3]
+3093 /usr/sbin/console-kit-daemon--no-daemon
+[[TCP SOCKET CHECK]]
+[Compiling check_sockets...]
+[OK]
+22 is in use
+25 is in use
+111 is in use
+44804 is in use
