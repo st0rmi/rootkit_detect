@@ -384,6 +384,10 @@ Port knocking didn't seem to be enabled, there were no netfilter hooks and we co
 \subsection{Group 7}
 
 \subsection{Comparison of the different rootkits}
+The following table gives an overview over which groups' rootkit we were able to detect in which way using our kernel module.
+It is intended to show which ways of detecting hidden rootkits are most robust.
+It is not listing which rootkits were found using the user-space shell script as we were able to detect every rootkit (which would actually run the script) using this.
+
 \begin{center}
             \begin{tabular}{l|l|l|l|l|l|}
                 & SysCall Pointer & SysCall Instructions & PID hidden from \emph{/proc} & NF hook & Hidden modules\\ \hline
@@ -398,5 +402,9 @@ Port knocking didn't seem to be enabled, there were no netfilter hooks and we co
 \end{center}
 
 \section{Conclusion}\label{sec:conclusion}
+As seen during the analysis section of this paper, we were easily able to detect all the rootkits. Using our tools this was only possible, however, because of the very special and ideal environment for this.
+
+Our LKM relies on a valid \emph{System.map} file which has not been tempered, for example. If this would not be present, we either could not have used some features of our module or would have to find another way to obtain the correct kernel symbols.
+
 
 \end{document}
