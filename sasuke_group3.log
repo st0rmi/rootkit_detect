@@ -86,12 +86,12 @@ There are 3 manipulated functions.
 [02477] getty
 [02774] kworker/u2:0
 [03096] kworker/0:1
-[03180] udevd
 [03181] kworker/0:0
 [03200] login
 [03201] zsh
-[03225] udevd
-[03248] insmod
+[03222] udevd
+[03223] udevd
+[03243] insmod
 Number of processes: 65 (64 if you account for the 'insmod').
 Verify by running the command 'ps ax --no-headers | wc -l'.
 
@@ -99,7 +99,98 @@ Verify by running the command 'ps ax --no-headers | wc -l'.
 [(null)] 0xFFFFFFFFA0345060
 Number of current netfilter hooks: 1.
 
-[Checking loaded kernel modules...]
+[Checking loaded kernel modules in /sys/modules...]
+/module/ac
+/module/sg
+/module/tcp_diag
+/module/nfs
+/module/hid
+/module/vt
+/module/8250
+/module/acpi
+/module/tcp_cubic
+/module/snd
+/module/ext4
+/module/jbd2
+/module/loop
+/module/i2c_core
+/module/nfsd
+/module/serio_raw
+/module/cpuidle
+/module/ipv6
+/module/ahci
+/module/usb_common
+/module/crct10dif_common
+/module/nfnetlink
+/module/e1000
+/module/dns_resolver
+/module/cdrom
+/module/i8042
+/module/auth_rpcgss
+/module/lockd
+/module/evdev
+/module/crc16
+/module/block
+/module/rcutree
+/module/snd_ac97_codec
+/module/i2c_piix4
+/module/snd_intel8x0
+/module/snd_timer
+/module/libahci
+/module/mbcache
+/module/firmware_class
+/module/snd_pcm
+/module/spurious
+/module/scsi_mod
+/module/button
+/module/nfnetlink_log
+/module/ohci_pci
+/module/ohci_hcd
+/module/apparmor
+/module/fscache
+/module/netpoll
+/module/nfs_acl
+/module/joydev
+/module/soundcore
+/module/ata_generic
+/module/ehci_hcd
+/module/workqueue
+/module/mousedev
+/module/hid_generic
+/module/libata
+/module/pcspkr
+/module/pciehp
+/module/acpiphp
+/module/sasuke
+/module/pstore
+/module/sr_mod
+/module/sunrpc
+/module/oid_registry
+/module/sd_mod
+/module/usbcore
+/module/battery
+/module/8250_core
+/module/crc_t10dif
+/module/usbhid
+/module/printk
+/module/parport
+/module/ac97_bus
+/module/parport_pc
+/module/microcode
+/module/ata_piix
+/module/pcie_aspm
+/module/inet_diag
+/module/intel_idle
+/module/psmouse
+/module/pci_hotplug
+/module/keyboard
+/module/rcupdate
+/module/xz_dec
+/module/kernel
+/module/sysrq
+Number of loaded kernel modules in /sys/modules: 88
+
+[Checking loaded kernel modules in lsmod...]
 sasuke
 tcp_diag
 inet_diag
@@ -160,3 +251,93 @@ libata
 scsi_mod
 e1000
 Number of loaded kernel modules: 59
+
+[Checking loaded kernel modules in kobjects...]
+xz_dec
+tcp_cubic
+kernel
+workqueue
+printk
+spurious
+rcupdate
+rcutree
+pstore
+apparmor
+block
+pcie_aspm
+pci_hotplug
+pciehp
+acpiphp
+intel_idle
+acpi
+sysrq
+keyboard
+vt
+8250_core
+8250
+firmware_class
+i8042
+mousedev
+cpuidle
+netpoll
+ipv6
+dns_resolver
+e1000
+scsi_mod
+libata
+ata_piix
+libahci
+ahci
+ata_generic
+crct10dif_common
+cdrom
+crc_t10dif
+sr_mod
+sd_mod
+sg
+mbcache
+jbd2
+crc16
+ext4
+button
+ac
+battery
+ac97_bus
+i2c_core
+soundcore
+i2c_piix4
+pcspkr
+serio_raw
+psmouse
+microcode
+evdev
+usb_common
+parport
+parport_pc
+snd
+usbcore
+ehci_hcd
+ohci_hcd
+ohci_pci
+snd_timer
+snd_pcm
+snd_ac97_codec
+snd_intel8x0
+hid
+usbhid
+hid_generic
+joydev
+loop
+sunrpc
+fscache
+lockd
+nfs
+nfs_acl
+oid_registry
+auth_rpcgss
+nfsd
+nfnetlink
+nfnetlink_log
+inet_diag
+tcp_diag
+Number of loaded kernel modules: 88
